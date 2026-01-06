@@ -1,12 +1,35 @@
-        .encoding "petscii_upper"
-        * = $c000
-        ldx #$00
-loop:   lda htext,x
-        beq done
-        jsr $ffd2
-        inx
-        jmp loop
-done:   rts
+BasicUpstart2(start)
 
-htext:  .text "HELLO 1984"
-        .byte 0
+.const SCREEN = $0400
+.const COLOR  = $D800
+.const BORDER_COLOR = $D020
+.const BACKGROUND_COLOR = $D021
+
+start:
+    // 1) Imposta colori bordo/sfondo (VIC-II)
+    lda #$0                 // 0 = nero
+    sta BORDER_COLOR        // border color
+    lda #$B                 // 11 = grigio scuro
+    sta BACKGROUND_COLOR    // background color
+
+    // 2) Scrivi un carattere a schermo
+    lda #$53
+    sta SCREEN + 30
+    lda #$2
+    sta COLOR + 30
+
+// 3) Scrivi 16 caratteri ognuno con un colore diverso
+ldx #0
+writechars:
+    txa 
+    sta COLOR,x
+    clc
+    adc #1
+    // lda #$53
+    sta SCREEN,x
+    inx
+    cpx #16
+    bne writechars
+
+loop:
+    jmp loop

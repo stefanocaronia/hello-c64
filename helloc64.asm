@@ -11,8 +11,8 @@ start:
     jsr $ffd2     // KERNAL CHROUT
     
     // Switch to lowercase/uppercase charset
-    // lda #$0E
-    // jsr $ffd2
+    lda #$0E
+    jsr $ffd2
 
     // 1) Imposta colori bordo/sfondo (VIC-II)
     lda #$0                 // 0 = nero
@@ -21,7 +21,7 @@ start:
     sta BACKGROUND_COLOR    // background color
 
     // 2) Scrivi un carattere a schermo
-    lda #$53
+    lda #$D3
     sta SCREEN + 30
     lda #$7
     sta COLOR + 30

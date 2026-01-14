@@ -124,3 +124,25 @@ waitNext:
     beq waitNext    // aspetta che riparta
     rts
 ```
+
+## Input da tastiera: GETIN ($FFE4)
+
+```asm
+jsr $FFE4       // legge tastiera
+                // A = codice PETSCII del tasto, oppure 0 se nessun tasto
+cmp #65         // confronta con 'A' (PETSCII)
+beq handleA     // salta se uguale
+```
+
+**Nota:** GETIN restituisce codici **PETSCII**, non screen codes.
+
+| Tasto     | PETSCII (dec) | PETSCII (hex) |
+| --------- | ------------- | ------------- |
+| 0-9       | 48-57         | $30-$39       |
+| A-Z       | 65-90         | $41-$5A       |
+| SPACE     | 32            | $20           |
+| RETURN    | 13            | $0D           |
+| CRSR UP   | 145           | $91           |
+| CRSR DOWN | 17            | $11           |
+| CRSR LEFT | 157           | $9D           |
+| CRSR RIGHT| 29            | $1D           |

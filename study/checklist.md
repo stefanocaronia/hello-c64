@@ -43,3 +43,10 @@
 
 - [x] Attesa di un frame via raster `$D012`.
 - [x] Delay in frames con contatore in X.
+
+## Input da tastiera
+
+- [x] Lettura tasto con KERNAL `GETIN` (`$FFE4`).
+- [x] GETIN restituisce 0 se nessun tasto è premuto.
+- [x] Confronto con `CMP` e branch condizionale `BEQ`.
+- [x] Differenza PETSCII (I/O) vs screen codes (memoria video).

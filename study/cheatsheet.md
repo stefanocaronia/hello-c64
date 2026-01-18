@@ -146,3 +146,61 @@ beq handleA     // salta se uguale
 | CRSR DOWN | 17            | $11           |
 | CRSR LEFT | 157           | $9D           |
 | CRSR RIGHT| 29            | $1D           |
+
+## Movimento carattere su schermo
+
+```asm
+// Variabili
+posX: .byte 20    // colonna 0-39
+posY: .byte 12    // riga 0-24
+
+// Wrap-around esempio (down)
+inc posY
+lda posY
+cmp #25           // oltre il bordo?
+bne ok
+lda #0            // torna a 0
+sta posY
+ok:
+```
+
+## Libreria math (lib/math.asm)
+
+```asm
+#import "lib/math.asm"
+
+// Multiply8x8: moltiplica due numeri 8 bit → risultato 16 bit
+lda posY
+sta mulA          // primo fattore
+lda #40
+sta mulB          // secondo fattore
+lda #0
+sta mulBHi        // IMPORTANTE: azzerare!
+jsr Multiply8x8
+// Risultato in resultLo/resultHi
+
+// Add16: somma valore 8 bit a risultato 16 bit
+lda posX
+jsr Add16
+// resultLo/resultHi ora contiene posY*40 + posX
+```
+
+## Indirizzamento indiretto indicizzato (avanzato)
+
+```asm
+.const ZPA = $FB   // puntatore zero page (2 byte)
+
+// Scrivi carattere all'indirizzo in ZPA
+ldy #0
+lda #$53           // carattere da scrivere
+sta (ZPA),y        // scrive a indirizzo contenuto in ZPA
+
+// Trucco per color RAM: SCREEN=$0400, COLOR=$D800
+// Differenza = $D400, quindi basta aggiungere $D4 al byte alto
+lda ZPA+1
+clc
+adc #$D4
+sta ZPA+1          // ora ZPA punta a color RAM
+lda #$02           // colore rosso
+sta (ZPA),y
+```

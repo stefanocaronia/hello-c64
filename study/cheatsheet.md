@@ -185,6 +185,40 @@ jsr Add16
 // resultLo/resultHi ora contiene posY*40 + posX
 ```
 
+## Dichiarazioni: .const, .label e label automatiche
+
+| Sintassi | Significato | Indirizzo | Contenuto | Mutabile a runtime? |
+|----------|-------------|-----------|-----------|---------------------|
+| `.const SCREEN = $0400` | Costante (sostituzione testuale) | N/A | N/A | No (compile-time) |
+| `.label ZPA = $FB` | Alias per indirizzo specifico | $FB (deciso da te) | non definito | No (compile-time) |
+| `posX: .byte 20` | Variabile con valore iniziale | calcolato dall'assembler | 20 | **Sì** |
+
+### `.const` - Costante
+```asm
+.const SCREEN = $0400     // valore fisso, sostituito ovunque
+lda #<SCREEN              // diventa: lda #$00
+```
+Usa per: valori fissi, indirizzi hardware, configurazioni.
+
+### `.label` - Alias per indirizzo fisso
+```asm
+.label ZPA = $FB          // ZPA rappresenta l'indirizzo $FB
+sta ZPA                   // scrive all'indirizzo $FB in zero page
+```
+Usa per: dare nomi a locazioni zero page o registri hardware.
+
+### Label automatica (con `:`) - Variabile
+```asm
+posX: .byte 20            // l'assembler decide dove metterla
+lda posX                  // legge il contenuto (20)
+inc posX                  // modifica il contenuto a runtime
+```
+Usa per: variabili del programma che cambiano durante l'esecuzione.
+
+**Nota:** Le label automatiche **non** finiscono in zero page - l'assembler le mette dove capita nel programma (dopo $0800).
+
+---
+
 ## Indirizzamento indiretto indicizzato (avanzato)
 
 ```asm

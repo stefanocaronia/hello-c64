@@ -31,10 +31,10 @@ BasicUpstart2(start)
 .const KEY_LEFT  = 157  // $9D
 .const KEY_RIGHT = 29   // $1D
 
-.const CHAR = $53 
+.const CHAR = $53 // cuoricino
 
-.const ZPA = $FB
-.const ZPB = $FD
+.label ZPA = $FB
+.label ZPB = $FD
 
 start:
     lda #$B
@@ -58,7 +58,8 @@ mainloop:
     cmp #0
     beq mainloop
 
-    cmp #KEY_DOWN
+    // cmp non cambia il valore di A, quindi si può usare ripetutamente beq o bne (come uno switch)
+    cmp #KEY_DOWN 
     beq down
     cmp #KEY_UP
     beq up
@@ -66,6 +67,8 @@ mainloop:
     beq right
     cmp #KEY_LEFT
     beq left
+
+    // è stato premuto un altro tasto, torna a mainloop
     jmp mainloop
 down:
     jsr EraseChar
@@ -127,8 +130,6 @@ DrawChar: {
     sta mulA
     lda #40
     sta mulB
-    lda #0
-    sta mulBHi
     jsr Multiply8x8
     
     // 2. Aggiungi posX al risultato

@@ -60,10 +60,17 @@
 - [x] Wrap-around ai bordi (0-39 per X, 0-24 per Y).
 - [x] Cancellare posizione precedente scrivendo spazio ($20).
 
-## Matematica e librerie (avanzato)
+## Matematica e librerie
 
 - [x] Calcolo indirizzo schermo: SCREEN + Y*40 + X.
 - [x] Moltiplicazione 8x8 bit con risultato 16 bit (shift-and-add).
 - [x] Uso di libreria esterna con `#import`.
 - [x] Indirizzamento indiretto indicizzato `(ZP),y` per scrivere a indirizzo calcolato.
-- [x] Trucco colore: aggiungere $D4 al byte alto per passare da screen a color RAM.
+- [x] Aritmetica a 16 bit (somma con carry su due byte).
+
+## Sintassi KickAssembler avanzata
+
+- [x] Differenza tra `.const` (costante compile-time) e `.label` (alias per indirizzo fisso).
+- [x] Label automatiche con `:` per variabili con indirizzo calcolato dall'assembler.
+- [x] `BasicUpstart2(label)` genera linea BASIC con SYS per avvio automatico.
+- [x] Direttiva `*=` per impostare il program counter / indirizzo di caricamento.

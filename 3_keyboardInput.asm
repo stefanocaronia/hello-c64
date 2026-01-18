@@ -55,7 +55,6 @@ setA:
     jsr SetScreenA
     jmp mainloop
 
-
 end: 
     jmp end
 

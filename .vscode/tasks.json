@@ -1,0 +1,66 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build with Kick Assembler",
+            "type": "shell",
+            "command": "java",
+            "args": [
+                "-jar",
+                "F:/Emulatori/Commodore/KickAssembler/KickAss.jar",
+                "${file}",
+                "-o",
+                "${fileDirname}/bin/${fileBasenameNoExtension}.prg"
+            ],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Run with VICE",
+            "type": "shell",
+            "command": "F:/Emulatori/Commodore/GTK3VICE-3.10-win64/bin/x64sc.exe",
+            "args": [
+                "${fileDirname}/bin/${fileBasenameNoExtension}.prg"
+            ],
+            "dependsOn": "Build with Kick Assembler",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Run with C64 Debugger",
+            "type": "shell",
+            "command": "F:/Emulatori/Commodore/C64 Debugger v0.64.58.6.win32/C64Debugger.exe",
+            "args": [
+                "-reset",
+                "-prg",
+                "${fileDirname}\\bin\\${fileBasenameNoExtension}.prg",
+                "-alwaysjmp",
+                "-unpause"
+            ],
+            "dependsOn": "Build with Kick Assembler",
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        }
+    ]
+}

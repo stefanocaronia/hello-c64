@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "Bash(git add:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(\"F:/Emulatori/Commodore/C64 Debugger v0.64.58.6.win32/C64Debugger.exe\" -help)"
     ]
   }
 }

@@ -49,8 +49,10 @@
                 "-reset",
                 "-prg",
                 "${fileDirname}\\bin\\${fileBasenameNoExtension}.prg",
-                "-alwaysjmp",
-                "-unpause"
+                "-autojmp",
+                "-unpause",
+                "-symbols",
+                "${fileDirname}\\bin\\${fileBasenameNoExtension}.sym"
             ],
             "dependsOn": "Build with Kick Assembler",
             "group": "build",

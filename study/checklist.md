@@ -74,3 +74,12 @@
 - [x] Label automatiche con `:` per variabili con indirizzo calcolato dall'assembler.
 - [x] `BasicUpstart2(label)` genera linea BASIC con SYS per avvio automatico.
 - [x] Direttiva `*=` per impostare il program counter / indirizzo di caricamento.
+
+## Stack
+
+- [x] Lo stack è in pagina 1 ($0100-$01FF), cresce verso il basso.
+- [x] `PHA` salva A sullo stack, `PLA` lo recupera.
+- [x] Per salvare X: `TXA` + `PHA`, per ripristinare: `PLA` + `TAX`.
+- [x] Regola LIFO: ultimo salvato = primo recuperato.
+- [x] Convenzione: chi modifica un registro lo salva all'inizio e lo ripristina alla fine.
+- [x] Prima di usare lo stack, valutare se basta un altro registro o una variabile.

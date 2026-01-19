@@ -59,14 +59,10 @@ mainloop:
     beq mainloop
 
     // cmp non cambia il valore di A, quindi si può usare ripetutamente beq o bne (come uno switch)
-    cmp #KEY_DOWN 
-    beq down
-    cmp #KEY_UP
-    beq up
-    cmp #KEY_RIGHT
-    beq right
-    cmp #KEY_LEFT
-    beq left
+    cmp #KEY_DOWN; beq down
+    cmp #KEY_UP; beq up
+    cmp #KEY_RIGHT; beq right
+    cmp #KEY_LEFT; beq left
 
     // è stato premuto un altro tasto, torna a mainloop
     jmp mainloop

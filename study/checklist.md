@@ -83,3 +83,9 @@
 - [x] Regola LIFO: ultimo salvato = primo recuperato.
 - [x] Convenzione: chi modifica un registro lo salva all'inizio e lo ripristina alla fine.
 - [x] Prima di usare lo stack, valutare se basta un altro registro o una variabile.
+
+## Lookup table
+
+- [x] `.lohifill` per generare tabelle di byte lo/hi con espressione.
+- [x] Accesso con `tabella.lo,x` e `tabella.hi,x`.
+- [x] Precalcolare indirizzi invece di moltiplicare a runtime.

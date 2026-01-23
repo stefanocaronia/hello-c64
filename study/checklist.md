@@ -71,7 +71,10 @@
 ## Sintassi KickAssembler avanzata
 
 - [x] Differenza tra `.const` (costante compile-time) e `.label` (alias per indirizzo fisso).
-- [x] Label automatiche con `:` per variabili con indirizzo calcolato dall'assembler.
+- [x] Label automatiche con `:` equivale a `.label nome = *` (indirizzo corrente).
+- [x] `.var` e `.eval` per variabili assembler riassegnabili (scripting compile-time).
+- [x] Tutti i simboli (`.const`, `.label`, `.var`, `nome:`) spariscono dopo la compilazione.
+- [x] "Variabile runtime" = label fissa + contenuto modificabile a quell'indirizzo.
 - [x] `BasicUpstart2(label)` genera linea BASIC con SYS per avvio automatico.
 - [x] Direttiva `*=` per impostare il program counter / indirizzo di caricamento.
 
@@ -89,3 +92,11 @@
 - [x] `.lohifill` per generare tabelle di byte lo/hi con espressione.
 - [x] Accesso con `tabella.lo,x` e `tabella.hi,x`.
 - [x] Precalcolare indirizzi invece di moltiplicare a runtime.
+
+## VIC-II Bank
+
+- [x] Il VIC vede solo 16KB alla volta (4 bank).
+- [x] Selezione bank via $DD00 bit 0-1 (valori invertiti: %11=bank 0, %00=bank 3).
+- [x] $D018 imposta offset schermo (bit 4-7) e charset (bit 1-3) dentro il bank.
+- [x] Bank 0 e 2 hanno Character ROM a $1000/$9000; bank 1 e 3 no.
+- [ ] Copiare Character ROM nel bank per usare charset custom (da fare).

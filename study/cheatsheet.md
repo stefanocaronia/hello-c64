@@ -40,23 +40,67 @@ lda #$93      // CLR/HOME (clear screen)
 jsr $ffd2     // CHROUT
 ```
 
-## VIC-II: screen base in $D018
+## VIC-II Bank ($DD00)
 
-I bit 4-7 selezionano lo screen buffer (index * 1024).
+Il VIC-II vede solo 16KB alla volta. La memoria 64KB è divisa in 4 bank.
 
-| Schermo | Indirizzo | Index |
-| ------- | --------- | ----- |
-| $0400   | 1024      | 1     |
-| $0800   | 2048      | 2     |
-| $0C00   | 3072      | 3     |
+| Bit 0-1 | Bank | Indirizzi       | Note |
+|---------|------|-----------------|------|
+| `%11`   | 0    | $0000-$3FFF     | Default. Char ROM a $1000 |
+| `%10`   | 1    | $4000-$7FFF     | Tutto libero! |
+| `%01`   | 2    | $8000-$BFFF     | Char ROM a $9000 |
+| `%00`   | 3    | $C000-$FFFF     | I/O a $D000 (problema) |
 
 ```asm
-// imposta screen a $0400 mantenendo il charset
-lda $d018
+// Seleziona bank 1
+lda $DD00
+and #%11111100    // azzera bit 0-1
+ora #%00000010    // imposta %10 = bank 1
+sta $DD00
+```
+
+**Nota:** I valori sono invertiti! %11 = bank 0, %00 = bank 3.
+
+**Character ROM:** Nel bank 0 e 2, il VIC vede la ROM charset a $1000/$9000 invece della RAM. Nel bank 1 e 3 non c'è questo trucco.
+
+## VIC-II: offset schermo e charset ($D018)
+
+Dentro il bank corrente, $D018 imposta gli offset:
+- **Bit 4-7**: schermo (× $0400)
+- **Bit 1-3**: charset (× $0800)
+
+| Schermo | Offset | Bit 4-7 |
+| ------- | ------ | ------- |
+| +$0000  | 0      | %0000   |
+| +$0400  | 1      | %0001   |
+| +$0800  | 2      | %0010   |
+| +$0C00  | 3      | %0011   |
+
+| Charset | Offset | Bit 1-3 |
+| ------- | ------ | ------- |
+| +$0000  | 0      | %000    |
+| +$0800  | 1      | %001    |
+| +$1000  | 2      | %010    | ← default (Char ROM in bank 0/2)
+| +$1800  | 3      | %011    |
+| +$2000  | 4      | %100    |
+
+```asm
+// Imposta schermo a offset $0400 (mantenendo charset)
+lda $D018
 and #%00001111
 ora #%00010000
-sta $d018
+sta $D018
+
+// Imposta charset a offset $2000 (mantenendo schermo)
+lda $D018
+and #%11110001
+ora #%00001000    // %100 << 1 = %1000
+sta $D018
 ```
+
+**Indirizzo finale** = base bank + offset $D018
+
+Esempio bank 1 + offset $0400 → schermo a $4400
 
 ## Encoding e stringhe
 
@@ -185,37 +229,53 @@ jsr Add16
 // resultLo/resultHi ora contiene posY*40 + posX
 ```
 
-## Dichiarazioni: .const, .label e label automatiche
+## Simboli assembler: cosa esiste solo a compile-time
 
-| Sintassi | Significato | Indirizzo | Contenuto | Mutabile a runtime? |
-|----------|-------------|-----------|-----------|---------------------|
-| `.const SCREEN = $0400` | Costante (sostituzione testuale) | N/A | N/A | No (compile-time) |
-| `.label ZPA = $FB` | Alias per indirizzo specifico | $FB (deciso da te) | non definito | No (compile-time) |
-| `posX: .byte 20` | Variabile con valore iniziale | calcolato dall'assembler | 20 | **Sì** |
+Tutti questi spariscono dopo la compilazione. Nel .prg finale ci sono solo bytes.
+
+| Sintassi | Scopo | Riassegnabile? |
+|----------|-------|----------------|
+| `.const X = 1` | Costante, sostituzione testuale | No |
+| `.label X = $FB` | Simbolo = indirizzo fisso | No |
+| `.var X = 1` | Variabile assembler (per scripting) | Sì (con `.eval`) |
+| `nome:` | Simbolo = indirizzo corrente (`*`) | No |
 
 ### `.const` - Costante
 ```asm
-.const SCREEN = $0400     // valore fisso, sostituito ovunque
+.const SCREEN = $0400     // sostituzione testuale
 lda #<SCREEN              // diventa: lda #$00
 ```
-Usa per: valori fissi, indirizzi hardware, configurazioni.
 
-### `.label` - Alias per indirizzo fisso
+### `.label` - Alias per indirizzo
 ```asm
-.label ZPA = $FB          // ZPA rappresenta l'indirizzo $FB
-sta ZPA                   // scrive all'indirizzo $FB in zero page
+.label ZPA = $FB          // ZPA = $FB, appare nel file .sym
+sta ZPA                   // scrive a $FB
 ```
-Usa per: dare nomi a locazioni zero page o registri hardware.
 
-### Label automatica (con `:`) - Variabile
+### `.var` e `.eval` - Variabili assembler
 ```asm
-posX: .byte 20            // l'assembler decide dove metterla
-lda posX                  // legge il contenuto (20)
-inc posX                  // modifica il contenuto a runtime
+.var counter = 0
+.byte counter             // scrive 0
+.eval counter = counter + 1
+.byte counter             // scrive 1
 ```
-Usa per: variabili del programma che cambiano durante l'esecuzione.
+Utile con `.for` per generare dati. Non esiste a runtime.
 
-**Nota:** Le label automatiche **non** finiscono in zero page - l'assembler le mette dove capita nel programma (dopo $0800).
+### Label implicita (con `:`)
+```asm
+myData: .byte $BE, $EF    // myData = indirizzo corrente
+```
+Equivale a `.label myData = *` dove `*` è il program counter.
+
+## Variabili runtime
+
+"Variabile" in assembly = label fissa + contenuto modificabile:
+```asm
+posX: .byte 20            // posX = indirizzo (costante), contenuto = 20
+lda posX                  // legge 20
+inc posX                  // ora contiene 21
+```
+La label `posX` non cambia mai. Il byte **a quell'indirizzo** sì.
 
 ---
 

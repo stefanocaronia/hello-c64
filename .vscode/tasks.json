@@ -24,7 +24,7 @@
         {
             "label": "Run with VICE",
             "type": "shell",
-            "command": "F:/Emulatori/Commodore/GTK3VICE-3.10-win64/bin/x64sc.exe",
+            "command": "F:/Emulatori/Commodore/Vice/bin/x64sc.exe",
             "args": [
                 "${fileDirname}/bin/${fileBasenameNoExtension}.prg"
             ],

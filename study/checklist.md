@@ -1,6 +1,6 @@
 # Checklist di apprendimento
 
-**Media: 4.5/10** (64 concetti appresi, 5 da imparare)
+**Media: 4.3/10** (67 concetti appresi, 2 da imparare)
 
 Punteggio: 1-10 (1=visto di sfuggita, 5=capito, 10=padronanza)
 
@@ -143,7 +143,7 @@ Punteggio: 1-10 (1=visto di sfuggita, 5=capito, 10=padronanza)
 | Calcolo pointer: indirizzo_sprite / 64 | 6 |
 | Sprite data: 64 byte (21 righe × 3 byte + 1 padding) | 4 |
 | Posizionare sprite data con `*=$indirizzo` | 5 |
-| MSB per posizione X > 255 ($D010) | 0 |
-| Movimento sprite con input | 0 |
-| Sprite multicolor | 0 |
+| MSB per posizione X > 255 ($D010) | 4 |
+| Movimento sprite con input | 4 |
+| Sprite multicolor | 4 |
 | Collisioni sprite | 0 |

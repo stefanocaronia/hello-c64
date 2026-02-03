@@ -1,6 +1,6 @@
 # Checklist di apprendimento
 
-**Media: 4.3/10** (67 concetti appresi, 2 da imparare)
+**Media: 4.3/10** (81 concetti appresi, 4 da imparare)
 
 Punteggio: 1-10 (1=visto di sfuggita, 5=capito, 10=padronanza)
 
@@ -147,3 +147,22 @@ Punteggio: 1-10 (1=visto di sfuggita, 5=capito, 10=padronanza)
 | Movimento sprite con input | 4 |
 | Sprite multicolor | 4 |
 | Collisioni sprite | 0 |
+
+## IRQ e Interrupt
+
+| Concetto | Score |
+|----------|-------|
+| SEI/CLI per disabilitare/abilitare interrupt globali | 5 |
+| Vettore IRQ hardware $FFFE/$FFFF (con KERNAL off) | 5 |
+| Vettore IRQ KERNAL $0314/$0315 (con KERNAL on) | 4 |
+| Processor Port $01 per bank switching ROM/RAM | 5 |
+| Configurazione $35 = KERNAL off, I/O on | 5 |
+| Raster line a 9 bit: $D012 (low) + $D011 bit 7 (high) | 5 |
+| Abilitare raster IRQ con $D01A bit 0 | 5 |
+| Acknowledge IRQ scrivendo 1 in $D019 | 6 |
+| Salvare/ripristinare A/X/Y nell'handler | 5 |
+| RTI per tornare dal interrupt | 5 |
+| Differenza RTI vs JMP $EA31 vs JMP $EA81 | 4 |
+| Raster jitter e sue cause | 4 |
+| Stable raster (double IRQ) | 0 |
+| IRQ multipli nello stesso frame (raster split) | 0 |

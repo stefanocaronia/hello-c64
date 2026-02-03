@@ -34,128 +34,129 @@
 
 BasicUpstart2(start)
 
-.label BORDER_COLOR = $D020
-.label BACKGROUND_COLOR = $D021
+// Hardware registers (VIC)
+.const VIC_BORDER = $D020
+.const VIC_BACKGROUND = $D021
+.const VIC_SPRITE0_X = $D000
+.const VIC_SPRITE0_Y = $D001
+.const VIC_SPRITE_MSB = $D010
+.const VIC_SPRITE_ENABLE = $D015
+.const VIC_SPRITE_MULTICOLOR = $D01C
+.const VIC_SPRITE_MC1 = $D025
+.const VIC_SPRITE_MC2 = $D026
+.const VIC_SPRITE_COLOR = $D027
 
-.label SPRITE_ENABLE = $D015
-.label SPRITE_MULTICOLOR = $D01C
-.label SPRITE_COLORS = $D027
-.label SPRITE_M1 = $D025
-.label SPRITE_M2 = $D026
-.label SPRITE_POINTERS = $07F8
-.label SPRITE_MSB = $D010
+// Memory addresses
+.const SPRITE_POINTERS = $07F8
 
-.label SPRITE0_X = $D000
-.label SPRITE0_Y = $D001
+// KERNAL routines
+.const KERNAL_CLEAR_SCREEN = $E544
+.const KERNAL_GETIN = $FFE4
 
-.label KERNAL_CLEAR_SCREEN = $E544
+// Numeric constants - PETSCII cursor keys
+.const KeyUp    = 145  // $91
+.const KeyDown  = 17   // $11
+.const KeyLeft  = 157  // $9D
+.const KeyRight = 29   // $1D
 
-// Codici PETSCII tasti cursore
-.const KEY_UP    = 145  // $91
-.const KEY_DOWN  = 17   // $11
-.const KEY_LEFT  = 157  // $9D
-.const KEY_RIGHT = 29   // $1D
-
-.const GETIN  = $FFE4
-
-// Limiti schermo (sprite 24x21 completamente visibile)
-.const SPRITE_MIN_X = 24
-.const SPRITE_MAX_X_LO = 63     // 319 - 256 = 63 (con MSB=1)
-.const SPRITE_MIN_Y = 50
-.const SPRITE_MAX_Y = 228
+// Numeric constants - sprite bounds
+.const SpriteMinX = 24
+.const SpriteMaxXLo = 63     // 319 - 256 = 63 (con MSB=1)
+.const SpriteMinY = 50
+.const SpriteMaxY = 228
 
 start:
-    lda #BLACK                 
-    sta BORDER_COLOR        
-    lda #DARK_GREY                 
-    sta BACKGROUND_COLOR    
+    lda #BLACK
+    sta VIC_BORDER
+    lda #DARK_GREY
+    sta VIC_BACKGROUND
 
     jsr KERNAL_CLEAR_SCREEN
 
     lda #%00000001
-    sta SPRITE_ENABLE
-    sta SPRITE_MULTICOLOR
+    sta VIC_SPRITE_ENABLE
+    sta VIC_SPRITE_MULTICOLOR
 
-    lda #$80   
+    lda #$80
     sta SPRITE_POINTERS
 
     lda #GREEN
-    sta SPRITE_COLORS
+    sta VIC_SPRITE_COLOR
 
     lda #BLACK
-    sta SPRITE_M1
-    
+    sta VIC_SPRITE_MC1
+
     lda #WHITE
-    sta SPRITE_M2
+    sta VIC_SPRITE_MC2
 
     lda #posX
-    sta SPRITE0_X
-    lda #posY 
-    sta SPRITE0_Y
+    sta VIC_SPRITE0_X
+    lda #posY
+    sta VIC_SPRITE0_Y
 
-mainloop:
-    jsr GETIN
+mainLoop:
+    jsr KERNAL_GETIN
     cmp #0
-    beq mainloop
+    beq mainLoop
 
     // cmp non cambia il valore di A, quindi si può usare ripetutamente beq o bne (come uno switch)
-    cmp #KEY_DOWN; beq down
-    cmp #KEY_UP; beq up
-    cmp #KEY_RIGHT; beq right
-    cmp #KEY_LEFT; beq left
+    cmp #KeyDown; beq down
+    cmp #KeyUp; beq up
+    cmp #KeyRight; beq right
+    cmp #KeyLeft; beq left
 
-    // è stato premuto un altro tasto, torna a mainloop
-    jmp mainloop
+    // è stato premuto un altro tasto, torna a mainLoop
+    jmp mainLoop
 down:
-    lda SPRITE0_Y
-    cmp #SPRITE_MAX_Y       // confronta Y con limite basso (228)
-    beq mainloop            // se Y == max, non muovere
-    inc SPRITE0_Y
-    jmp mainloop
+    lda VIC_SPRITE0_Y
+    cmp #SpriteMaxY         // confronta Y con limite basso (228)
+    beq mainLoop            // se Y == max, non muovere
+    inc VIC_SPRITE0_Y
+    jmp mainLoop
 
 up:
-    lda SPRITE0_Y
-    cmp #SPRITE_MIN_Y       // confronta Y con limite alto (50)
-    beq mainloop            // se Y == min, non muovere
-    dec SPRITE0_Y
-    jmp mainloop
+    lda VIC_SPRITE0_Y
+    cmp #SpriteMinY         // confronta Y con limite alto (50)
+    beq mainLoop            // se Y == min, non muovere
+    dec VIC_SPRITE0_Y
+    jmp mainLoop
 
 left:
     // Controlla se X == 24 (MSB=0 e low=24)
-    lda SPRITE_MSB
+    lda VIC_SPRITE_MSB
     and #%00000001
     bne canMoveLeft         // MSB=1, X >= 256, posso andare a sinistra
-    lda SPRITE0_X
-    cmp #SPRITE_MIN_X       // confronta con 24
-    beq mainloop            // X == 24, bordo sinistro!
+    lda VIC_SPRITE0_X
+    cmp #SpriteMinX         // confronta con 24
+    beq mainLoop            // X == 24, bordo sinistro!
 canMoveLeft:
-    lda SPRITE0_X
+    lda VIC_SPRITE0_X
     bne justDecLeft         // se low != 0, decrementa e basta
     // low = 0, devo prima togliere 1 al MSB (256 → 255)
-    lda SPRITE_MSB
+    lda VIC_SPRITE_MSB
     and #%11111110
-    sta SPRITE_MSB
+    sta VIC_SPRITE_MSB
 justDecLeft:
-    dec SPRITE0_X
-    jmp mainloop
+    dec VIC_SPRITE0_X
+    jmp mainLoop
 
 right:
     // Controlla se X >= 319 (MSB=1 e low >= 63)
-    lda SPRITE_MSB
+    lda VIC_SPRITE_MSB
     and #%00000001
     beq canMoveRight        // MSB=0, X < 256, posso muovermi
     // MSB=1, controlla se low >= 63
-    lda SPRITE0_X
-    cmp #SPRITE_MAX_X_LO    // 63
-    bcs mainloop            // se low >= 63, stop (X >= 319)
+    lda VIC_SPRITE0_X
+    cmp #SpriteMaxXLo       // 63
+    bcs mainLoop            // se low >= 63, stop (X >= 319)
 canMoveRight:
-    inc SPRITE0_X
-    bne mainloop            // non ha wrappato, ok
+    inc VIC_SPRITE0_X
+    bne mainLoop            // non ha wrappato, ok
     // ha wrappato 255→0, setta MSB
-    lda SPRITE_MSB
+    lda VIC_SPRITE_MSB
     ora #%00000001
-    sta SPRITE_MSB
-    jmp mainloop
+    sta VIC_SPRITE_MSB
+    jmp mainLoop
 
 jmp *
 

@@ -46,6 +46,8 @@ Vedi file separati:
 - [vic-bank.md](vic-bank.md) - VIC-II Bank e $D018
 - [charset.md](charset.md) - Charset custom
 - [sprite.md](sprite.md) - Sprite
+- [raster-irq.md](raster-irq.md) - Raster IRQ
+- [joystick.md](joystick.md) - Joystick e CIA
 
 ## Encoding e stringhe
 
@@ -221,6 +223,27 @@ lda posX                  // legge 20
 inc posX                  // ora contiene 21
 ```
 La label `posX` non cambia mai. Il byte **a quell'indirizzo** sì.
+
+---
+
+## Branch troppo lontani (±127 byte)
+
+I branch relativi (`BEQ`, `BNE`, `BCS`, `BCC`, `BMI`, `BPL`, `BVC`, `BVS`) possono saltare solo ±127 byte. Se la destinazione è troppo lontana, inverti la condizione e usa `JMP`:
+
+```asm
+// ❌ ERRORE: destinazione troppo lontana
+    beq farLabel          // "relative address is illegal"
+
+// ✅ SOLUZIONE: inverti e usa JMP
+    bne !skip+            // inverti: BEQ → BNE
+    jmp farLabel          // JMP raggiunge qualsiasi indirizzo
+!skip:
+```
+
+| Istruzione | Range | Byte |
+|------------|-------|------|
+| `BEQ/BNE/etc.` | ±127 byte | 2 (opcode + offset relativo) |
+| `JMP` | 64KB | 3 (opcode + indirizzo assoluto) |
 
 ---
 

@@ -1,6 +1,6 @@
 # Checklist di apprendimento
 
-**Media: 4.3/10** (81 concetti appresi, 4 da imparare)
+**Media: 4.5/10** (92 concetti appresi, 3 da imparare)
 
 Punteggio: 1-10 (1=visto di sfuggita, 5=capito, 10=padronanza)
 
@@ -165,4 +165,28 @@ Punteggio: 1-10 (1=visto di sfuggita, 5=capito, 10=padronanza)
 | Differenza RTI vs JMP $EA31 vs JMP $EA81 | 4 |
 | Raster jitter e sue cause | 4 |
 | Stable raster (double IRQ) | 0 |
-| IRQ multipli nello stesso frame (raster split) | 0 |
+| IRQ multipli nello stesso frame (raster split) | 6 |
+| CIA1 genera IRQ timer - disabilitare con $DC0D = $7F | 6 |
+
+## Joystick e CIA
+
+| Concetto | Score |
+|----------|-------|
+| Lettura joystick porta 2 da $DC00 (CIA1 Port A) | 6 |
+| Lettura joystick porta 1 da $DC01 (CIA1 Port B) | 4 |
+| Bit active-low: 0 = premuto, 1 = rilasciato | 7 |
+| Mapping bit: 0=su, 1=giù, 2=sx, 3=dx, 4=fuoco | 7 |
+| Pattern LSR + BCS per testare direzioni in sequenza | 7 |
+| Pattern AND + BEQ per testare singolo bit | 6 |
+| CIA1 ICR ($DC0D) per gestione interrupt CIA | 6 |
+| Game loop pattern: input in mainLoop, movimento in IRQ | 6 |
+
+## Bitshift e operazioni sui bit
+
+| Concetto | Score |
+|----------|-------|
+| LSR shifta a destra, bit 0 va nel Carry | 7 |
+| Dopo N LSR, il bit N originale è nel Carry | 7 |
+| BCS salta se Carry=1, BCC salta se Carry=0 | 7 |
+| AND con maschera per isolare bit specifici | 6 |
+| ORA per settare bit, AND per clearare bit | 5 |

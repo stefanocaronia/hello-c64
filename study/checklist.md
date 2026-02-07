@@ -1,6 +1,6 @@
 # Checklist di apprendimento
 
-**Media: 4.5/10** (92 concetti appresi, 3 da imparare)
+**Media: 4.5/10** (100 concetti appresi, 3 da imparare)
 
 Punteggio: 1-10 (1=visto di sfuggita, 5=capito, 10=padronanza)
 
@@ -190,3 +190,16 @@ Punteggio: 1-10 (1=visto di sfuggita, 5=capito, 10=padronanza)
 | BCS salta se Carry=1, BCC salta se Carry=0 | 7 |
 | AND con maschera per isolare bit specifici | 6 |
 | ORA per settare bit, AND per clearare bit | 5 |
+
+## SID (Sound Interface Device)
+
+| Concetto | Score |
+|----------|-------|
+| 3 voci indipendenti, 7 registri per voce | 5 |
+| Waveform: Triangle, Sawtooth, Pulse, Noise (no Sine) | 5 |
+| ADSR: Attack/Decay in $D405, Sustain/Release in $D406 | 6 |
+| Frequenza a 16 bit: freq lo/hi ($D400/$D401) | 6 |
+| Gate bit (bit 0 di Control): 1=nota ON, 0=Release | 6 |
+| Volume globale: 4 bit bassi di $D418 | 6 |
+| Ordine setup: volume → ADSR → frequenza → gate ON | 6 |
+| Frequenze diverse tra PAL e NTSC (clock diverso) | 4 |

@@ -48,6 +48,7 @@ Vedi file separati:
 - [sprite.md](sprite.md) - Sprite
 - [raster-irq.md](raster-irq.md) - Raster IRQ
 - [joystick.md](joystick.md) - Joystick e CIA
+- [sid.md](sid.md) - SID sound chip
 
 ## Encoding e stringhe
 

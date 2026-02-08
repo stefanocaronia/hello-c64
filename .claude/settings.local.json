@@ -3,7 +3,34 @@
     "allow": [
       "Bash(git add:*)",
       "Bash(git commit:*)",
-      "Bash(\"F:/Emulatori/Commodore/C64 Debugger v0.64.58.6.win32/C64Debugger.exe\" -help)"
+      "Bash(\"F:/Emulatori/Commodore/C64 Debugger v0.64.58.6.win32/C64Debugger.exe\" -help)",
+      "WebFetch(domain:www.lemon64.com)",
+      "WebFetch(domain:retro-programming.com)",
+      "Bash(cmd /c \"cd /d f:\\\\sviluppo\\\\projects-c64\\\\HelloC64 && robocopy study \\\\monolith\\\\Dati\\\\Stefano\\\\Documenti\\\\Studio\\\\C64\\\\Notes *.md /MIR /FFT /Z /R:2 /W:2\")",
+      "Bash(cmd /c \"dir \\\\monolith\\\\Dati\\\\Stefano\\\\Documenti\\\\Studio\\\\C64\\\\Notes\")",
+      "Bash(cmd /c \"dir \\\\monolith\\\\Dati\\\\Stefano\\\\Documenti\\\\Studio\\\\C64\\\\Notes 2>&1\")",
+      "Bash(cmd /c \"ping monolith -n 1 2>&1 && echo PING_OK || echo PING_FAIL\")",
+      "Bash(ping:*)",
+      "Bash(MSYS_NO_PATHCONV=1 cmd:*)",
+      "Bash(echo:*)",
+      "Bash(powershell -Command:*)",
+      "Bash(ls:*)",
+      "Bash(powershell:*)",
+      "Bash(cmd /c sync_study.bat:*)",
+      "Bash(cmd /c \"cd /d f:\\\\sviluppo\\\\projects-c64\\\\HelloC64 && sync_study.bat\")",
+      "WebFetch(domain:sta.c64.org)",
+      "WebFetch(domain:codebase64.org)",
+      "WebFetch(domain:gist.github.com)",
+      "Bash(cmd /c \"dir \"\"\\\\\\\\monolith\\\\Dati\\\\Stefano\\\\Documenti\\\\Studio\\\\C64\\\\SID Factory II\"\"\")",
+      "WebFetch(domain:www.theweb.dk)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:files.chordian.net)",
+      "WebFetch(domain:blog.chordian.net)",
+      "WebFetch(domain:celso.io)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:theweb.dk)",
+      "WebFetch(domain:chipmusic.org)",
+      "WebFetch(domain:csdb.dk)"
     ]
   }
 }

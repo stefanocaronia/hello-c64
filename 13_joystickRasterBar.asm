@@ -27,6 +27,9 @@
 // - Bit 4 = Fuoco   (0 = premuto)
 // ============================================================================
 
+#import "lib/screen.asm"
+#import "lib/macros.asm"
+
 BasicUpstart2(start)
 
 // Hardware registers (VIC)
@@ -44,8 +47,6 @@ BasicUpstart2(start)
 .label VIC_SPRITE_COLOR = $D027
 .label VIC_SPRITE_MC1 = $D025
 .label VIC_SPRITE_MC2 = $D026
-.label VIC_SCREEN = $0400
-
 // Hardware registers (CIA)
 .label CIA1_PORT_A = $DC00
 .label CIA1_ICR = $DC0D          // Interrupt Control Register
@@ -83,6 +84,9 @@ BasicUpstart2(start)
 .label SpriteMaxXLo = 63          // 319 - 256 = 63 (quando MSB=1)
 .label SpriteMinY = 50
 .label SpriteMaxY = 229
+
+// Screen address
+.label SCREEN = $0400
 
 // ============================================================================
 // SETUP
@@ -300,35 +304,4 @@ continue:
 // TODO: importa il tuo sprite binary qui
 .import binary "sprites/11/testsprite.bin", 0, 64
 
-// MACROS
-.macro SaveRegisters()
-{
-    pha
-    txa
-    pha
-    tya
-    pha
-}
 
-.macro RestoreRegisters()
-{
-    pla
-    tay    
-    pla
-    tax
-    pla
-}
-
-// SUBROUTINES
-ClearScreen: {
-    ldx #$00
-loop: 
-    lda #$20
-    sta VIC_SCREEN,x
-    sta VIC_SCREEN+$0100,x // 256
-    sta VIC_SCREEN+$0200,x // 512
-    sta VIC_SCREEN+$0300,x // 768
-    inx
-    bne loop
-    rts
-}

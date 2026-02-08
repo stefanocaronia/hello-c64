@@ -1,6 +1,7 @@
 // ESERCIZIO 9: VIC Bank
 // Sposta lo schermo nel bank 1 e scrivi qualcosa.
 BasicUpstart2(start)
+#import "lib/screen.asm"
 
 // TODO: definisci le costanti che ti servono
 .const SCREEN = $4400
@@ -39,22 +40,6 @@ start:
 
     jmp *
 
-    ClearScreen: {
-        ldx #$00
-    loop: 
-        lda #$20
-        sta SCREEN,x
-        sta SCREEN+$0100,x // 256
-        sta SCREEN+$0200,x // 512
-        sta SCREEN+$0300,x // 768
-        sta SCREEN,x
-        sta SCREEN+$0100,x // 256
-        sta SCREEN+$0200,x // 512
-        sta SCREEN+$0300,x // 768
-        inx
-        bne loop
-        rts
-    }
 
 *=CHARSET "Charset"
 .import binary "charsets/charset-1.bin"

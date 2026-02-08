@@ -18,6 +18,7 @@
 
 BasicUpstart2(start)
 #import "lib/math.asm"
+#import "lib/screen.asm"
 
 .const SCREEN = $0400
 .const COLOR  = $D800
@@ -166,15 +167,3 @@ EraseChar:{
     rts
 }
 
-ClearScreen: {
-    ldx #$00
-    lda #$20
-loop:
-    sta SCREEN,x
-    sta SCREEN+$0100,x
-    sta SCREEN+$0200,x
-    sta SCREEN+$0300,x
-    inx
-    bne loop
-    rts
-}

@@ -141,21 +141,3 @@ SetScreenB:
     rts
 
 
-WaitFrame: {
-l1:
-    lda $d012
-    bne l1      // aspetta linea 0
-l2:
-    lda $d012
-    beq l2      // aspetta che riparta
-    rts
-}
-
-// number of frames should be loaded in X (PAL = 50 FPS)
-Wait: {
-loop:
-    jsr WaitFrame
-    dex
-    bne loop
-    rts
-}

@@ -1,6 +1,6 @@
 # Checklist di apprendimento
 
-**Media: 4.5/10** (100 concetti appresi, 3 da imparare)
+**Media: 4.6/10** (104 concetti appresi, 3 da imparare)
 
 Punteggio: 1-10 (1=visto di sfuggita, 5=capito, 10=padronanza)
 
@@ -167,6 +167,7 @@ Punteggio: 1-10 (1=visto di sfuggita, 5=capito, 10=padronanza)
 | Stable raster (double IRQ) | 0 |
 | IRQ multipli nello stesso frame (raster split) | 6 |
 | CIA1 genera IRQ timer - disabilitare con $DC0D = $7F | 6 |
+| CIA2 può generare NMI - disabilitare con $DD0D = $7F | 6 |
 
 ## Joystick e CIA
 
@@ -203,3 +204,6 @@ Punteggio: 1-10 (1=visto di sfuggita, 5=capito, 10=padronanza)
 | Volume globale: 4 bit bassi di $D418 | 6 |
 | Ordine setup: volume → ADSR → frequenza → gate ON | 6 |
 | Frequenze diverse tra PAL e NTSC (clock diverso) | 4 |
+| Player SF2: INIT una volta + TICK a ogni frame in IRQ | 7 |
+| Entry point del TICK non fisso: va verificato nel PRG packato | 7 |
+| Zero page del player scelta nel pack: evitare conflitti con ZP utente | 6 |

@@ -20,7 +20,7 @@ Al termine del percorso dovrai saper:
 - Ogni esercizio introduce al massimo 1-2 concetti nuovi.
 - Ogni modulo ha prerequisiti chiari e criteri di uscita verificabili.
 - Prima si consolida il controllo tecnico (memoria, cicli, IRQ), poi si compone il gameplay.
-- Il progresso personale viene tracciato in `study/course-progress.md`.
+- Il progresso personale viene tracciato in `teacher/course/course-progress.md`.
 
 ## Struttura moduli
 
@@ -199,4 +199,4 @@ Aggiorna questo file quando cambia il design del corso:
 3. criteri di uscita;
 4. milestone capstone.
 
-Per il progresso personale usa sempre `study/course-progress.md`.
+Per il progresso personale usa sempre `teacher/course/course-progress.md`.

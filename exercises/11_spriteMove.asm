@@ -168,4 +168,4 @@ posY: .byte 139       // centro Y: (50 + 228) / 2 ≈ 139
 
 // Dati sprite
 *=$2000 "Sprite"
-.import binary "sprites/11/testsprite.bin", 0, 64
+.import binary "assets/sprites/11/testsprite.bin", 0, 64

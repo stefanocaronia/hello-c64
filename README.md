@@ -8,9 +8,10 @@ This project contains progressive exercises in `exercises/` (`<n>_<name>.asm`) a
 
 ## Course Tracking
 
-- Course plan: [study/course-plan.md](study/course-plan.md)
-- Course progress (0-10): [study/course-progress.md](study/course-progress.md)
-- Agent/course operating rules: [agents.md](agents.md)
+- Course plan: [teacher/course/course-plan.md](teacher/course/course-plan.md)
+- Course progress (0-10): [teacher/course/course-progress.md](teacher/course/course-progress.md)
+- Agent entry point: [agents.md](agents.md)
+- Full teacher instructions: [teacher/instructions/instructions.md](teacher/instructions/instructions.md)
 
 ## Study Notes
 
@@ -70,25 +71,28 @@ Use these steps when you want to start the course from a clean student workspace
    - `Keep reference exercises (recommended)`: keep `exercises/` as examples/reference.
    - `Clean start`: remove `exercises/` to start from zero.
 3. Remove agent memory history:
-   - delete `.agents/memory/` contents (or the whole folder).
+   - delete `teacher/memory/` contents (or the whole folder).
 4. Ask the agent to reset study files:
-   - clear `study/course-progress.md`;
-   - regenerate `study/course-plan.md` as a fresh course blueprint for the new student.
+   - clear `teacher/course/course-progress.md`;
+   - regenerate `teacher/course/course-plan.md` as a fresh course blueprint for the new student.
 5. Continue with normal course workflow.
 
 ## Repository Structure
 
 - `exercises/`: numbered practical exercises (`<n>_<name>.asm`)
 - `lib/`: reusable macros and helper libraries (screen, timing, math)
-- `study/`: course plan, course progress, and notes
+- `study/`: topic notes (`basics`, `sprite`, `sid`, etc.)
+- `teacher/course/`: course plan and course progress
+- `teacher/memory/`: agent memory files
+- `teacher/prompt/`: operational prompts (including notes backup)
 - `doc/`: manuals and C64/KickAssembler references
-- `sprites/`, `charsets/`, `music/`: assets used by exercises
+- `assets/`: exercise assets
+- `assets/sprites/`, `assets/charsets/`, `assets/music/`: sprite, charset, and music assets
 
 ## Suggested Workflow
 
-1. Pick the next exercise from the plan ([study/course-plan.md](study/course-plan.md)).
+1. Pick the next exercise from the plan ([teacher/course/course-plan.md](teacher/course/course-plan.md)).
 2. Work in one small learning step at a time (1-2 new concepts).
-3. Update [study/course-progress.md](study/course-progress.md) and [study/course-plan.md](study/course-plan.md).
-4. Mirror notes using your `config.yaml` path:
-   `robocopy "study" "<notes_backup_path from config.yaml>" *.md /MIR /FFT /Z /R:2 /W:2`
+3. Update [teacher/course/course-progress.md](teacher/course/course-progress.md) and [teacher/course/course-plan.md](teacher/course/course-plan.md).
+4. Run notes backup using [teacher/prompt/notes-backup.md](teacher/prompt/notes-backup.md).
 5. Commit the learning step.

@@ -302,6 +302,6 @@ continue:
 // ============================================================================
 *=$2000 "Sprite"
 // TODO: importa il tuo sprite binary qui
-.import binary "sprites/11/testsprite.bin", 0, 64
+.import binary "assets/sprites/11/testsprite.bin", 0, 64
 
 

@@ -42,7 +42,7 @@ start:
 
 
 *=CHARSET "Charset"
-.import binary "charsets/charset-1.bin"
+.import binary "assets/charsets/charset-1.bin"
 
 
 

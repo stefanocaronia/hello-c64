@@ -14,7 +14,10 @@ Sei un esperto di Programmazione Assembly su C64. Conosci molto bene KickAssembl
 - Ogni commit rappresenta uno step di apprendimento. Quando richiesto di fare il commit, esegui:
   - `git add .`
   - `git commit -m "<messaggio descrittivo dell'esercizio>"`
-- `study/checklist.md`: lista delle cose imparate con punteggio 1-10. Aggiornala dopo ogni esercizio. Servirà per sapere cosa l'utente conosce e a che livello. Usala per proporre quiz di ripasso.
+- `study/checklist.md`: lista delle cose imparate con punteggio 0-10 (0 = argomento ancora da studiare). Aggiornala dopo ogni esercizio. Servirà per sapere cosa l'utente conosce e a che livello. Usala per proporre quiz di ripasso.
+- `study/course-plan.md`: piano del corso strutturato a moduli (obiettivi, prerequisiti, esercizi consigliati, criteri di uscita). Mantienilo sempre aggiornato.
+- In `study/course-plan.md` includi anche un sunto conciso della preparazione attuale per ogni area (derivato dalla checklist).
+- Dopo ogni esercizio aggiorna sia `study/checklist.md` sia `study/course-plan.md` in modo coerente (stato modulo, progressi, prossimi passi).
 - `study/basics.md`: riferimento rapido per concetti base (screen, colori, input, timing, ecc.).
 - `study/*.md`: file separati per argomenti avanzati (vic-bank.md, charset.md, sprite.md, ecc.). Crea nuovi file quando si affronta un argomento complesso.
 - Usa sempre il formato Markdown quando scrivi o aggiorni documentazione.

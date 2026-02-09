@@ -2,7 +2,7 @@
 
 **Media: 4.6/10** (104 concetti appresi, 3 da imparare)
 
-Punteggio: 1-10 (1=visto di sfuggita, 5=capito, 10=padronanza)
+Punteggio: 0-10 (0=argomento ancora da studiare, 1=visto di sfuggita, 5=capito, 10=padronanza)
 
 ## Fondamentali KickAssembler
 

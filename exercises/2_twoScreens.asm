@@ -1,4 +1,4 @@
-#import "lib/timing.asm"
+#import "../lib/timing.asm"
 
 BasicUpstart2(start)
 
@@ -135,5 +135,6 @@ SetScreenB:
     lda screenBColors + 2
     jsr SetColor
     rts
+
 
 

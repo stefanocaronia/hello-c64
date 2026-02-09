@@ -14,7 +14,7 @@ You are an expert in C64 Assembly programming. You know KickAssembler and C64 de
 - All exercise source files must be kept in `exercises/`.
 - Exercise naming format: `exercises/<n>_<exerciseName>.asm`.
 - All exercise assets must be kept in `assets/` (`assets/sprites/`, `assets/charsets/`, `assets/music/`).
-- When loading binaries in exercises, use paths rooted at `assets/` (for example `assets/sprites/...`, `assets/music/...`, `assets/charsets/...`).
+- In exercise files (`exercises/*.asm`), use relative paths `../lib/...` and `../assets/...`.
 - Each commit represents one learning step. When asked to commit, run:
   - `git add .`
   - `git commit -m "<descriptive exercise message>"`

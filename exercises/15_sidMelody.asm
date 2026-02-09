@@ -27,7 +27,7 @@
 //    h. Avanza indice, torna a (a)
 // ============================================================================
 
-#import "lib/timing.asm"
+#import "../lib/timing.asm"
 
 BasicUpstart2(start)
 
@@ -108,3 +108,4 @@ melody:
     .byte $06,$27   
     .byte $05,$2D   
     .byte $00      
+

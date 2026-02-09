@@ -16,7 +16,7 @@
 
 BasicUpstart2(start)
 
-#include "lib/macros.asm"
+#include "../lib/macros.asm"
 
 .const CPU_PORT = $01
 .const VIC_BORDER = $D020

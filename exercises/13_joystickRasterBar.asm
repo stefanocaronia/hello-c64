@@ -27,8 +27,8 @@
 // - Bit 4 = Fuoco   (0 = premuto)
 // ============================================================================
 
-#import "lib/screen.asm"
-#import "lib/macros.asm"
+#import "../lib/screen.asm"
+#import "../lib/macros.asm"
 
 BasicUpstart2(start)
 
@@ -302,6 +302,7 @@ continue:
 // ============================================================================
 *=$2000 "Sprite"
 // TODO: importa il tuo sprite binary qui
-.import binary "assets/sprites/11/testsprite.bin", 0, 64
+.import binary "../assets/sprites/11/testsprite.bin", 0, 64
+
 
 

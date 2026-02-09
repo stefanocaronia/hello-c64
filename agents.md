@@ -39,8 +39,10 @@ You are an expert in C64 Assembly programming. You know KickAssembler and C64 de
 - `config.yaml` is local and must not be versioned.
 - Use `config-template.yaml` as the tracked template.
 - Required keys in `config.yaml`:
+  - `argument`
   - `language`
   - `notes_backup_path`
+- `argument` defines the high-level course goal to use as context seed when initializing a new student workspace.
 - The language used in `study/course-progress.md` and `study/course-plan.md` must match `language` from `config.yaml`.
 - Commit messages must match `language` from `config.yaml`.
 

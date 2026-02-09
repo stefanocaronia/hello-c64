@@ -1,3 +1,7 @@
 # Copy this file to config.yaml and customize values for your machine.
+# High-level course goal / prompt seed for your preferred LLM CLI.
+argument: "Learn C64 Assembly"
+# Output language used across chat, plans, docs, and commit messages.
 language: "it"
+# Destination path used to mirror study notes (robocopy target).
 notes_backup_path: "\\\\monolith\\Dati\\Stefano\\Documenti\\Studio\\C64\\Notes"

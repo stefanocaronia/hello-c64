@@ -34,9 +34,6 @@ Main topic notes:
 - Memory overview: [doc/C64 memory overview.md](doc/C64%20memory%20overview.md)
 - PAL frequencies (A=440Hz): [doc/c64-sound-frequencies-440hz-PAL.md](doc/c64-sound-frequencies-440hz-PAL.md)
 - SID Factory II manual: [doc/SID Factory II/user_manual.md](doc/SID%20Factory%20II/user_manual.md)
-- SID Factory II notes: [doc/SID Factory II/notes.md](doc/SID%20Factory%20II/notes.md)
-- SID Factory II FAQ: [doc/SID Factory II/faq.md](doc/SID%20Factory%20II/faq.md)
-- SID Factory II converter notes: [doc/SID Factory II/converter.md](doc/SID%20Factory%20II/converter.md)
 
 ## Local Configuration
 

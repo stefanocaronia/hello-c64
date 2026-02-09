@@ -1,4 +1,4 @@
-# Checklist di apprendimento
+# Progressi Corso
 
 **Media: 4.8/10** (110 concetti appresi, 2 da imparare)
 

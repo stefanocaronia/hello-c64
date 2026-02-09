@@ -1,124 +1,202 @@
 # Piano Corso C64 Assembly (KickAssembler)
 
-## Obiettivo del corso
+## Visione del corso
 
-Portarti da livello base a livello intermedio solido su C64 Assembly, con esercizi piccoli e progressivi (1-2 concetti nuovi per volta), fino a saper costruire mini-demo e piccoli framework riusabili.
+Obiettivo finale: portarti a progettare e sviluppare piccoli giochi completi per Commodore 64 in Assembly 6510, con toolchain moderna (KickAssembler + VS Code + VICE), codice mantenibile e debug consapevole.
 
-## Come leggere questo piano
+## Obiettivi di uscita (capstone)
 
-- Stato: `Non iniziato`, `In corso`, `Consolidamento`, `Pronto`.
-- Preparazione attuale: sintesi concisa della tua situazione su quell'argomento (derivata da `study/checklist.md`).
-- Uscita modulo: cosa devi saper fare prima di passare al modulo successivo.
+Al termine del percorso dovrai saper:
 
-## Stato attuale sintetico
+1. progettare il loop principale di un gioco (stati, input, update, render);
+2. usare VIC-II per schermo, sprite, split raster e sincronizzazione a frame;
+3. gestire input tastiera/joystick e logica di collisione;
+4. integrare audio SID (SFX + musica) senza rompere il timing;
+5. organizzare il codice in moduli riusabili (lib, macro, routine);
+6. costruire e debuggare un mini gioco completo (titolo, gameplay base, game over/restart).
 
-| Area | Preparazione attuale | Priorita |
-|------|-----------------------|----------|
-| Fondamentali ASM + KickAssembler | Buona base, da consolidare su scope/compile-time tools | Media |
-| Schermo, input, timing base | Funziona, ma serve ripasso operativo su timing e tastiera | Alta |
-| Puntatori, 16 bit, matematica | Punto piu debole tra gli argomenti gia toccati | Alta |
-| VIC-II (bank/screen/charset) | Base discreta, mancano pezzi importanti (copy charset) | Alta |
-| Sprite e joystick | Base buona, manca il blocco collisioni | Media |
-| IRQ/raster | Buona base pratica; stable raster in progresso (quiz timing superati) | Media |
-| SID | Buon livello base + player SF2 funzionante | Media |
-| Argomenti a score 0 | Restano 2 argomenti non ancora studiati | Pianificata |
+## Metodo didattico
 
-## Moduli del corso
+- Ogni esercizio introduce al massimo 1-2 concetti nuovi.
+- Ogni modulo ha prerequisiti chiari e criteri di uscita verificabili.
+- Prima si consolida il controllo tecnico (memoria, cicli, IRQ), poi si compone il gameplay.
+- Il progresso personale viene tracciato in `study/course-progress.md`.
 
-### Modulo 0 - Setup mentale e workflow
+## Struttura moduli
 
-- Stato: `Pronto`
-- Preparazione attuale: build/run e debug di base gia operativi.
+### Modulo 0 - Setup e workflow operativo
+
+- Obiettivo: ambiente stabile di sviluppo e debug.
+- Prerequisiti: nessuno.
+- Contenuti:
+  - build/run con KickAssembler;
+  - avvio in VICE;
+  - lettura memory map e uso monitor base.
+- Esercizi consigliati:
+  - compilazione e avvio file minimale;
+  - prova breakpoint su una routine semplice.
 - Uscita modulo:
-  - Compilare e avviare in VICE senza supporto.
-  - Sapere dove guardare memory map e simboli.
+  - sai compilare, eseguire e ispezionare memoria/registri senza supporto.
 
-### Modulo 1 - Fondamentali Assembly e memoria video
+### Modulo 1 - Fondamentali 6510 e memoria video
 
-- Stato: `Consolidamento`
-- Preparazione attuale: buona su loop, label base, scrittura schermo; da rafforzare scope e pulizia schermo strutturata.
+- Obiettivo: controllo base CPU/memoria/schermo.
+- Prerequisiti: Modulo 0.
+- Contenuti:
+  - registri A/X/Y, branch, loop;
+  - screen RAM e color RAM;
+  - subroutine e convenzioni base (`jsr/rts`).
+- Esercizi consigliati:
+  - stampa caratteri e pattern;
+  - routine di clear screen strutturata.
 - Uscita modulo:
-  - Scrivere routine piccole con `jsr/rts`.
-  - Gestire `SCREEN` e `COLOR RAM` con loop puliti.
+  - sai scrivere routine leggibili per disegno testo/attributi a schermo.
 
-### Modulo 2 - Input, timing e game loop base
+### Modulo 2 - Input e game loop base
 
-- Stato: `Consolidamento`
-- Preparazione attuale: lettura tastiera/joystick presente; timing in frame ancora fragile nei casi limite.
+- Obiettivo: creare un ciclo gioco stabile con input.
+- Prerequisiti: Modulo 1.
+- Contenuti:
+  - polling tastiera (`GETIN`) e joystick (CIA);
+  - loop di update con controllo timing elementare.
+- Esercizi consigliati:
+  - movimento di un cursore/oggetto con limiti schermo;
+  - gestione input multiplo con priorita` definite.
 - Uscita modulo:
-  - Costruire main loop con polling robusto.
-  - Gestire delay in frame senza bug (es. caso `X=0`).
+  - sai implementare un loop input->update->render senza blocchi.
 
 ### Modulo 3 - Puntatori, addressing e aritmetica 16 bit
 
-- Stato: `In corso`
-- Preparazione attuale: comprensione presente ma poco automatica su `(ZP),Y`, carry e offset pointer.
+- Obiettivo: manipolare buffer e indirizzi in modo robusto.
+- Prerequisiti: Modulo 2.
+- Contenuti:
+  - addressing indiretto `(ZP),Y`;
+  - carry e somme 16 bit;
+  - calcolo offset e lookup table.
+- Esercizi consigliati:
+  - print stringa via puntatore ZP;
+  - calcolo `SCREEN + y*40 + x` con tabella.
 - Uscita modulo:
-  - Scorrere stringhe/buffer con puntatori ZP.
-  - Sommare indirizzi a 16 bit in modo affidabile.
-  - Applicare moltiplicazione 8x8 quando serve.
+  - sai gestire dati dinamici e indirizzamento senza errori di pagina.
 
-### Modulo 4 - VIC-II: bank, screen base, charset
+### Modulo 4 - VIC-II: bank, charset e layout schermo
 
-- Stato: `In corso`
-- Preparazione attuale: bank e `$D018` compresi a livello base; copia charset nel bank non ancora studiata.
+- Obiettivo: controllo della memoria video avanzata.
+- Prerequisiti: Modulo 3.
+- Contenuti:
+  - VIC bank via CIA2;
+  - `D018` (screen/charset base);
+  - copia charset ROM->RAM e attivazione custom charset.
+- Esercizi consigliati:
+  - switch tra screen buffer;
+  - set caratteri personalizzati per HUD.
 - Uscita modulo:
-  - Configurare bank VIC + screen base in modo consapevole.
-  - Copiare charset ROM->RAM e attivarlo.
+  - sai configurare layout video adatto a UI + area gioco.
 
-### Modulo 5 - Sprite e movimento
+### Modulo 5 - Sprite e movimento fluido
 
-- Stato: `Consolidamento`
-- Preparazione attuale: setup/movimento/posizionamento ok; collisioni non ancora affrontate.
+- Obiettivo: costruire entita` di gioco con sprite hardware.
+- Prerequisiti: Modulo 4.
+- Contenuti:
+  - enable/posizione/colore sprite;
+  - pointer sprite e MSB X;
+  - multicolor sprite.
+- Esercizi consigliati:
+  - player sprite con movimento 4 direzioni;
+  - gestione limiti schermo e velocita` costante.
 - Uscita modulo:
-  - Gestire sprite con limiti, MSB X e aggiornamento fluido.
-  - Leggere e resettare correttamente i registri collisione.
+  - sai gestire almeno 1-2 sprite con controllo affidabile.
 
-### Modulo 6 - IRQ e raster avanzato
+### Modulo 6 - IRQ raster e sincronizzazione frame
 
-- Stato: `In corso`
-- Preparazione attuale: raster IRQ e split funzionano; stable raster avviato con buona comprensione teorica.
+- Obiettivo: timing stabile per effetti e logica periodica.
+- Prerequisiti: Modulo 5.
+- Contenuti:
+  - setup IRQ (`$D01A/$D019`, vettori IRQ, `SEI/CLI`);
+  - save/restore registri;
+  - split raster e stable raster (double/triple IRQ).
+- Esercizi consigliati:
+  - raster bar stabile;
+  - fascia colore con IRQ top/bottom;
+  - catena IRQ `arm/top/bottom`.
 - Uscita modulo:
-  - Gestire IRQ robusti con save/restore e ack corretti.
-  - Implementare stable raster (double IRQ) in esempio minimo.
-- Esito quiz rapido (E17):
-  - Equazione cicli risolta correttamente (`5*n-1+2=126 -> n=25`).
-  - Formula generale impostata correttamente (`X = (R*63 - P + 1)/5`).
-  - Vincolo `X` a 8 bit compreso (per fasce alte serve catena IRQ o doppio loop).
+  - sai sincronizzare update grafico senza jitter visibile significativo.
 
-### Modulo 7 - SID base e player SF2
+### Modulo 7 - Collisioni e logica gameplay
 
-- Stato: `Consolidamento`
-- Preparazione attuale: note ADSR + player SF2 in IRQ acquisiti; buon controllo degli entry point.
+- Obiettivo: passare da demo tecnica a meccanica di gioco.
+- Prerequisiti: Modulo 6.
+- Contenuti:
+  - collisioni sprite-sprite e sprite-background;
+  - gestione vite, punteggio, stato partita.
+- Esercizi consigliati:
+  - oggetti da evitare/raccogliere;
+  - trigger game over e restart.
 - Uscita modulo:
-  - Suonare SFX semplici e musica in parallelo con logica di gioco.
-  - Documentare `INIT/TICK`, ZP del player e timing IRQ.
+  - sai implementare una core loop giocabile con regole chiare.
 
-## Backlog ripasso prioritario (score 2-3)
+### Modulo 8 - SID: SFX e musica in gioco
 
-1. Moltiplicazione 8x8 shift-and-add.
-2. Timing frame-safe (`WaitFrame/Wait`) e casi limite.
-3. Puntatori ZP con offset (carry su byte alto).
-4. Tastiera: mapping PETSCII vs screen codes.
-5. Gestione due screen buffer e aggiornamento colore coerente.
+- Obiettivo: integrare audio senza compromettere il frame budget.
+- Prerequisiti: Modulo 7.
+- Contenuti:
+  - registri SID base (ADSR, waveform, gate);
+  - integrazione player (es. SID Factory II export / routine init-tick);
+  - priorita` SFX vs musica.
+- Esercizi consigliati:
+  - SFX su eventi gameplay;
+  - musica di sottofondo con tick in IRQ.
+- Uscita modulo:
+  - sai orchestrare audio coerente col gioco e con timing stabile.
 
-## Nuovi argomenti pianificati (score 0)
+### Modulo 9 - Architettura gioco
 
-1. Copia Character ROM nel bank RAM.
-2. Collisioni sprite (`$D01E/$D01F`).
+- Obiettivo: progettare codice scalabile su progetto reale.
+- Prerequisiti: Modulo 8.
+- Contenuti:
+  - state machine (title, play, pause, game over);
+  - separazione moduli (input, physics, render, audio);
+  - convenzioni naming, mappe memoria e allocazioni.
+- Esercizi consigliati:
+  - mini framework con dispatcher stati;
+  - bootstrap unico + init moduli.
+- Uscita modulo:
+  - sai organizzare un progetto C64 non banale in modo mantenibile.
 
-## Prossimi esercizi consigliati
+### Modulo 10 - Capstone: mini gioco completo
 
-1. `17_charsetCopy.asm` - copia charset ROM in RAM e attivazione via `$D018`.
-2. `18_spriteCollision.asm` - rilevazione collisione sprite/sfondo e reset flag.
-3. `19_stableRaster.asm` - completare catena 3 IRQ (`arm/top/bottom`) per fascia stabile.
+- Obiettivo: consegnare un gioco completo, piccolo ma rifinito.
+- Prerequisiti: Modulo 9.
+- Specifiche minime capstone:
+  - schermata titolo;
+  - gameplay continuo con obiettivo chiaro;
+  - punteggio e game over;
+  - almeno 2 tipi di entita` (player + nemico/oggetto);
+  - audio (musica o SFX, preferibilmente entrambi);
+  - stabilita` video senza artefatti evidenti.
+- Uscita modulo:
+  - gioco eseguibile in VICE, documentato, con codice comprensibile.
 
-## Regola di manutenzione del piano
+## Milestone consigliate
 
-Dopo ogni esercizio:
+1. Milestone A - Demo tecnica: input + sprite + raster base.
+2. Milestone B - Vertical slice: una meccanica giocabile completa.
+3. Milestone C - Capstone: gioco completo con polish base.
 
-1. aggiornare `study/checklist.md`;
-2. aggiornare questo file (`study/course-plan.md`) con:
-   - stato dei moduli toccati;
-   - breve nota su cosa e stato consolidato;
-   - prossimi 1-2 passi consigliati.
+## Criteri di qualita`
+
+- Correttezza: nessun crash, nessun lock-up in uso normale.
+- Stabilita` timing: frame regolari e IRQ ben gestiti.
+- Leggibilita`: etichette chiare, macro/routine con responsabilita` nette.
+- Riproducibilita`: build e run semplici, documentazione aggiornata.
+
+## Manutenzione del piano
+
+Aggiorna questo file quando cambia il design del corso:
+
+1. obiettivi o ordine dei moduli;
+2. esercizi suggeriti;
+3. criteri di uscita;
+4. milestone capstone.
+
+Per il progresso personale usa sempre `study/course-progress.md`.

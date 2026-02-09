@@ -1,24 +1,24 @@
 # HelloC64
 
-Repository didattico per imparare Assembly 6510 su Commodore 64 con KickAssembler, VS Code e VICE.
+Learning repository for Commodore 64 Assembly (6510) using KickAssembler, VS Code, and VICE.
 
-## Obiettivo del progetto
+## Project Goal
 
-Il progetto raccoglie esercizi progressivi (`<n>_<nome>.asm`) e materiale di studio per passare dalle basi (screen, loop, input) a temi intermedi (IRQ raster, sprite, SID, VIC bank).
+This project contains progressive exercises (`<n>_<name>.asm`) and study material to move from fundamentals (screen, loops, input) to intermediate topics (raster IRQ, sprites, SID, VIC bank).
 
-## Corso e monitoraggio progressi
+## Course Tracking
 
-- Piano del corso: [study/course-plan.md](study/course-plan.md)
-- Checklist competenze (score 0-10): [study/checklist.md](study/checklist.md)
-- Regole operative del corso/agente: [agents.md](agents.md)
+- Course plan: [study/course-plan.md](study/course-plan.md)
+- Course progress (0-10): [study/course-progress.md](study/course-progress.md)
+- Agent/course operating rules: [agents.md](agents.md)
 
-## Appunti di studio
+## Study Notes
 
-Riferimento rapido:
+Quick reference:
 
 - [study/basics.md](study/basics.md)
 
-Approfondimenti principali:
+Main topic notes:
 
 - [study/raster-irq.md](study/raster-irq.md)
 - [study/sprite.md](study/sprite.md)
@@ -27,25 +27,51 @@ Approfondimenti principali:
 - [study/charset.md](study/charset.md)
 - [study/joystick.md](study/joystick.md)
 
-## Documentazione principale (`Doc`)
+## Main Documentation (`Doc`)
 
-- Memory map principale: [Doc/Commodore 64 memory map.md](Doc/Commodore%2064%20memory%20map.md)
-- Panoramica memoria: [Doc/C64 memory overview.md](Doc/C64%20memory%20overview.md)
-- SID Factory II - manuale: [Doc/SID Factory II/user_manual.md](Doc/SID%20Factory%20II/user_manual.md)
-- Frequenze PAL (440Hz): [Doc/c64-sound-frequencies-440hz-PAL.md](Doc/c64-sound-frequencies-440hz-PAL.md)
+- Primary memory map: [Doc/Commodore 64 memory map.md](Doc/Commodore%2064%20memory%20map.md)
+- Memory overview: [Doc/C64 memory overview.md](Doc/C64%20memory%20overview.md)
+- PAL frequencies (A=440Hz): [Doc/c64-sound-frequencies-440hz-PAL.md](Doc/c64-sound-frequencies-440hz-PAL.md)
+- SID Factory II manual: [Doc/SID Factory II/user_manual.md](Doc/SID%20Factory%20II/user_manual.md)
+- SID Factory II notes: [Doc/SID Factory II/notes.md](Doc/SID%20Factory%20II/notes.md)
+- SID Factory II FAQ: [Doc/SID Factory II/faq.md](Doc/SID%20Factory%20II/faq.md)
+- SID Factory II converter notes: [Doc/SID Factory II/converter.md](Doc/SID%20Factory%20II/converter.md)
 
-## Struttura repository
+## Local Configuration
 
-- `*.asm`: esercizi pratici numerati
-- `lib/`: macro e librerie riusabili (screen, timing, math)
-- `study/`: piano corso, checklist e appunti Markdown
-- `Doc/`: manuali e riferimenti C64/KickAssembler
-- `sprites/`, `charsets/`, `music/`: asset per esercizi
+Create your own `config.yaml` from `config-template.yaml`:
 
-## Workflow consigliato
+```powershell
+Copy-Item config-template.yaml config.yaml
+```
 
-1. Scegli l'esercizio successivo dal piano ([study/course-plan.md](study/course-plan.md)).
-2. Svolgi un solo step didattico alla volta (1-2 concetti nuovi).
-3. Aggiorna [study/checklist.md](study/checklist.md) e [study/course-plan.md](study/course-plan.md).
-4. Esegui la replica note: `robocopy "study" "\\monolith\Dati\Stefano\Documenti\Studio\C64\Notes" *.md /MIR /FFT /Z /R:2 /W:2`
-5. Commit dello step.
+Then edit `config.yaml` with your local values:
+
+```yaml
+language: "it"
+notes_backup_path: "\\\\server\\share\\path\\to\\notes"
+```
+
+Notes:
+
+- `config.yaml` is ignored by git (local machine only).
+- `config-template.yaml` is tracked and serves as the shared template.
+- `language` is the language used for the course interactions.
+- `notes_backup_path` is used as target path for the notes mirror copy.
+
+## Repository Structure
+
+- `*.asm`: numbered practical exercises
+- `lib/`: reusable macros and helper libraries (screen, timing, math)
+- `study/`: course plan, checklist, and notes
+- `Doc/`: manuals and C64/KickAssembler references
+- `sprites/`, `charsets/`, `music/`: assets used by exercises
+
+## Suggested Workflow
+
+1. Pick the next exercise from the plan ([study/course-plan.md](study/course-plan.md)).
+2. Work in one small learning step at a time (1-2 new concepts).
+3. Update [study/course-progress.md](study/course-progress.md) and [study/course-plan.md](study/course-plan.md).
+4. Mirror notes using your `config.yaml` path:
+   `robocopy "study" "<notes_backup_path from config.yaml>" *.md /MIR /FFT /Z /R:2 /W:2`
+5. Commit the learning step.

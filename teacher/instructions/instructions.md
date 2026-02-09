@@ -65,4 +65,4 @@ You are an expert in C64 Assembly programming. You know KickAssembler and C64 de
 
 ## Development Environment
 
-- Development environment details are in `teacher/instructions/development-environment.md`.
+- Development environment details are in `teacher/instructions/environment.md`.

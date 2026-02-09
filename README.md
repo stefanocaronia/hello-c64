@@ -8,24 +8,31 @@ Il progetto raccoglie esercizi progressivi (`<n>_<nome>.asm`) e materiale di stu
 
 ## Corso e monitoraggio progressi
 
-- Piano del corso: `study/course-plan.md`
-- Checklist competenze (score 0-10): `study/checklist.md`
-- Regole operative del corso/agente: `agents.md`
+- Piano del corso: [study/course-plan.md](study/course-plan.md)
+- Checklist competenze (score 0-10): [study/checklist.md](study/checklist.md)
+- Regole operative del corso/agente: [agents.md](agents.md)
 
 ## Appunti di studio
 
 Riferimento rapido:
 
-- `study/basics.md`
+- [study/basics.md](study/basics.md)
 
 Approfondimenti principali:
 
-- `study/raster-irq.md`
-- `study/sprite.md`
-- `study/sid.md`
-- `study/vic-bank.md`
-- `study/charset.md`
-- `study/joystick.md`
+- [study/raster-irq.md](study/raster-irq.md)
+- [study/sprite.md](study/sprite.md)
+- [study/sid.md](study/sid.md)
+- [study/vic-bank.md](study/vic-bank.md)
+- [study/charset.md](study/charset.md)
+- [study/joystick.md](study/joystick.md)
+
+## Documentazione principale (`Doc`)
+
+- Memory map principale: [Doc/Commodore 64 memory map.md](Doc/Commodore%2064%20memory%20map.md)
+- Panoramica memoria: [Doc/C64 memory overview.md](Doc/C64%20memory%20overview.md)
+- SID Factory II - manuale: [Doc/SID Factory II/user_manual.md](Doc/SID%20Factory%20II/user_manual.md)
+- Frequenze PAL (440Hz): [Doc/c64-sound-frequencies-440hz-PAL.md](Doc/c64-sound-frequencies-440hz-PAL.md)
 
 ## Struttura repository
 
@@ -37,8 +44,8 @@ Approfondimenti principali:
 
 ## Workflow consigliato
 
-1. Scegli l'esercizio successivo dal piano (`study/course-plan.md`).
+1. Scegli l'esercizio successivo dal piano ([study/course-plan.md](study/course-plan.md)).
 2. Svolgi un solo step didattico alla volta (1-2 concetti nuovi).
-3. Aggiorna `study/checklist.md` e `study/course-plan.md`.
+3. Aggiorna [study/checklist.md](study/checklist.md) e [study/course-plan.md](study/course-plan.md).
 4. Esegui la replica note: `robocopy "study" "\\monolith\Dati\Stefano\Documenti\Studio\C64\Notes" *.md /MIR /FFT /Z /R:2 /W:2`
 5. Commit dello step.

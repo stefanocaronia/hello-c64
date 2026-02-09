@@ -4,7 +4,7 @@ Learning repository for Commodore 64 Assembly (6510) using KickAssembler, VS Cod
 
 ## Project Goal
 
-This project contains progressive exercises (`<n>_<name>.asm`) and study material to move from fundamentals (screen, loops, input) to intermediate topics (raster IRQ, sprites, SID, VIC bank).
+This project contains progressive exercises in `exercises/` (`<n>_<name>.asm`) and study material to move from fundamentals (screen, loops, input) to intermediate topics (raster IRQ, sprites, SID, VIC bank).
 
 ## Course Tracking
 
@@ -27,15 +27,15 @@ Main topic notes:
 - [study/charset.md](study/charset.md)
 - [study/joystick.md](study/joystick.md)
 
-## Main Documentation (`Doc`)
+## Main Documentation (`doc`)
 
-- Primary memory map: [Doc/Commodore 64 memory map.md](Doc/Commodore%2064%20memory%20map.md)
-- Memory overview: [Doc/C64 memory overview.md](Doc/C64%20memory%20overview.md)
-- PAL frequencies (A=440Hz): [Doc/c64-sound-frequencies-440hz-PAL.md](Doc/c64-sound-frequencies-440hz-PAL.md)
-- SID Factory II manual: [Doc/SID Factory II/user_manual.md](Doc/SID%20Factory%20II/user_manual.md)
-- SID Factory II notes: [Doc/SID Factory II/notes.md](Doc/SID%20Factory%20II/notes.md)
-- SID Factory II FAQ: [Doc/SID Factory II/faq.md](Doc/SID%20Factory%20II/faq.md)
-- SID Factory II converter notes: [Doc/SID Factory II/converter.md](Doc/SID%20Factory%20II/converter.md)
+- Primary memory map: [doc/Commodore 64 memory map.md](doc/Commodore%2064%20memory%20map.md)
+- Memory overview: [doc/C64 memory overview.md](doc/C64%20memory%20overview.md)
+- PAL frequencies (A=440Hz): [doc/c64-sound-frequencies-440hz-PAL.md](doc/c64-sound-frequencies-440hz-PAL.md)
+- SID Factory II manual: [doc/SID Factory II/user_manual.md](doc/SID%20Factory%20II/user_manual.md)
+- SID Factory II notes: [doc/SID Factory II/notes.md](doc/SID%20Factory%20II/notes.md)
+- SID Factory II FAQ: [doc/SID Factory II/faq.md](doc/SID%20Factory%20II/faq.md)
+- SID Factory II converter notes: [doc/SID Factory II/converter.md](doc/SID%20Factory%20II/converter.md)
 
 ## Local Configuration
 
@@ -61,10 +61,10 @@ Notes:
 
 ## Repository Structure
 
-- `*.asm`: numbered practical exercises
+- `exercises/`: numbered practical exercises (`<n>_<name>.asm`)
 - `lib/`: reusable macros and helper libraries (screen, timing, math)
-- `study/`: course plan, checklist, and notes
-- `Doc/`: manuals and C64/KickAssembler references
+- `study/`: course plan, course progress, and notes
+- `doc/`: manuals and C64/KickAssembler references
 - `sprites/`, `charsets/`, `music/`: assets used by exercises
 
 ## Suggested Workflow

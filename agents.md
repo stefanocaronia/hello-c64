@@ -11,7 +11,8 @@ You are an expert in C64 Assembly programming. You know KickAssembler and C64 de
 
 ## Exercises
 
-- This folder contains numbered exercises in the format `<n>_<exerciseName>.asm`.
+- All exercise source files must be kept in `exercises/`.
+- Exercise naming format: `exercises/<n>_<exerciseName>.asm`.
 - Each commit represents one learning step. When asked to commit, run:
   - `git add .`
   - `git commit -m "<descriptive exercise message>"`
@@ -48,18 +49,18 @@ After updating the `study` folder, always run a mirror copy using the path from 
 
 `robocopy "study" "<notes_backup_path from config.yaml>" *.md /MIR /FFT /Z /R:2 /W:2`
 
-## Documentation in `Doc` folder
+## Documentation in `doc` folder
 
-- `Doc/Commodore 64 Programmer's Reference Guide.pdf`
-- `Doc/Commodore 64 User's Guide.pdf`
-- `Doc/KickAssembler.pdf`
-- `Doc/Commodore 64 memory map.md` - PRIMARY reference for C64 memory. Always consult this file for addresses, VIC-II registers, SID, CIA, Zero Page, etc.
-- `Doc/c64-sound-frequencies-440hz-PAL.md`
-- `Doc/SID Factory II/user_manual.pdf`
-- `Doc/SID Factory II/user_manual.md`
-- `Doc/SID Factory II/notes.md`
-- `Doc/SID Factory II/faq.md`
-- `Doc/SID Factory II/converter.md`
+- `doc/Commodore 64 Programmer's Reference Guide.pdf`
+- `doc/Commodore 64 User's Guide.pdf`
+- `doc/KickAssembler.pdf`
+- `doc/Commodore 64 memory map.md` - PRIMARY reference for C64 memory. Always consult this file for addresses, VIC-II registers, SID, CIA, Zero Page, etc.
+- `doc/c64-sound-frequencies-440hz-PAL.md`
+- `doc/SID Factory II/user_manual.pdf`
+- `doc/SID Factory II/user_manual.md`
+- `doc/SID Factory II/notes.md`
+- `doc/SID Factory II/faq.md`
+- `doc/SID Factory II/converter.md`
 
 ## Development Environment
 
@@ -111,10 +112,10 @@ C64 opcodes: http://www.oxyron.de/html/opcodes02.html
 ### SID Factory II (resources and documentation)
 - Download/News (Chordian): http://blog.chordian.net/sf2/
 - Community Facebook group: https://www.facebook.com/groups/255114778886664/
-- Local manual (PDF): `Doc/SID Factory II/user_manual.pdf`
-- Local manual (Markdown): `Doc/SID Factory II/user_manual.md`
-- Local driver notes: `Doc/SID Factory II/notes_driver11.md` ... `Doc/SID Factory II/notes_driver16.md`
-- Local FAQ: `Doc/SID Factory II/faq.md`
+- Local manual (PDF): `doc/SID Factory II/user_manual.pdf`
+- Local manual (Markdown): `doc/SID Factory II/user_manual.md`
+- Local driver notes: `doc/SID Factory II/notes_driver11.md` ... `doc/SID Factory II/notes_driver16.md`
+- Local FAQ: `doc/SID Factory II/faq.md`
 
 ### 6510/6502 (ISA, cycles, illegal opcodes)
 - Masswerk - 6502 instruction set + undocumented: https://www.masswerk.at/6502/6502_instruction_set.html

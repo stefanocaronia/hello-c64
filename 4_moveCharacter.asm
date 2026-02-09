@@ -17,8 +17,8 @@
 // ============================================================
 
 BasicUpstart2(start)
-#import "../lib/math.asm"
-#import "../lib/screen.asm"
+#import "lib/math.asm"
+#import "lib/screen.asm"
 
 .const SCREEN = $0400
 .const COLOR  = $D800

@@ -20,9 +20,9 @@
 
 BasicUpstart2(start)
 
-#import "../lib/macros.asm"
-#import "../lib/screen.asm"
-#import "../lib/timing.asm"
+#import "lib/macros.asm"
+#import "lib/screen.asm"
+#import "lib/timing.asm"
 
 // Hardware registers
 .label VIC_CTRL1 = $D011
@@ -146,5 +146,5 @@ done:
 // MUSIC DATA
 // ============================================================================
 *=MUSIC_INIT "Music"
-.import binary "../assets/music/test2.prg", 2    // skip 2-byte PRG header
+.import binary "assets/music/test2.prg", 2    // skip 2-byte PRG header
 

@@ -15,7 +15,7 @@
 
 BasicUpstart2(start)
 
-#import "../lib/macros.asm"
+#import "lib/macros.asm"
 
 // VIC-II
 .label VIC_CTRL1 = $D011

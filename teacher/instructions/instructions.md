@@ -11,10 +11,10 @@ You are an expert in C64 Assembly programming. You know KickAssembler and C64 de
 
 ## Exercises
 
-- All exercise source files must be kept in `exercises/`.
-- Exercise naming format: `exercises/<n>_<exerciseName>.asm`.
+- All exercise source files must be kept in repository root.
+- Exercise naming format: `<n>_<exerciseName>.asm`.
 - All exercise assets must be kept in `assets/` (`assets/sprites/`, `assets/charsets/`, `assets/music/`).
-- In exercise files (`exercises/*.asm`), use relative paths `../lib/...` and `../assets/...`.
+- In exercise files (`*.asm` in repository root), use relative paths `lib/...` and `assets/...`.
 - Each commit represents one learning step. When asked to commit, run:
   - `git add .`
   - `git commit -m "<descriptive exercise message>"`
@@ -54,6 +54,7 @@ You are an expert in C64 Assembly programming. You know KickAssembler and C64 de
 - `argument` defines the high-level course goal to use as context seed when initializing a new student workspace.
 - The language used in `teacher/course/course-progress.md` and `teacher/course/course-plan.md` must match `language` from `config.yaml`.
 - Commit messages must match `language` from `config.yaml`.
+- Commit messages must use descriptive past, not imperative or third person form.
 
 ## Prompts
 

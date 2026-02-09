@@ -10,7 +10,7 @@
                 "F:/Emulatori/Commodore/KickAssembler/KickAss.jar",
                 "${file}",
                 "-o",
-                "${fileDirname}/bin/${fileBasenameNoExtension}.prg"
+                "${workspaceFolder}/bin/${fileBasenameNoExtension}.prg"
             ],
             "group": "build",
             "presentation": {
@@ -26,7 +26,7 @@
             "type": "shell",
             "command": "F:/Emulatori/Commodore/Vice/bin/x64sc.exe",
             "args": [
-                "${fileDirname}/bin/${fileBasenameNoExtension}.prg"
+                "${workspaceFolder}/bin/${fileBasenameNoExtension}.prg"
             ],
             "dependsOn": "Build with Kick Assembler",
             "group": {
@@ -48,11 +48,11 @@
             "args": [
                 "-reset",
                 "-prg",
-                "${fileDirname}\\bin\\${fileBasenameNoExtension}.prg",
+                "${workspaceFolder}\\bin\\${fileBasenameNoExtension}.prg",
                 "-autojmp",
                 "-unpause",
                 "-symbols",
-                "${fileDirname}\\bin\\${fileBasenameNoExtension}.sym"
+                "${workspaceFolder}\\bin\\${fileBasenameNoExtension}.sym"
             ],
             "dependsOn": "Build with Kick Assembler",
             "group": "build",

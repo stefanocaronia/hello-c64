@@ -4,7 +4,7 @@ Learning repository for Commodore 64 Assembly (6510) using KickAssembler, VS Cod
 
 ## Project Goal
 
-This project contains progressive exercises in `exercises/` (`<n>_<name>.asm`) and study material to move from fundamentals (screen, loops, input) to intermediate topics (raster IRQ, sprites, SID, VIC bank).
+This project contains progressive exercises in repository root (`<n>_<name>.asm`) and study material to move from fundamentals (screen, loops, input) to intermediate topics (raster IRQ, sprites, SID, VIC bank).
 
 ## Course Tracking
 
@@ -65,8 +65,8 @@ Use these steps when you want to start the course from a clean student workspace
 
 1. Open this repository folder with your preferred LLM CLI.
 2. Choose your starting mode:
-   - `Keep reference exercises (recommended)`: keep `exercises/` as examples/reference.
-   - `Clean start`: remove `exercises/` to start from zero.
+   - `Keep reference exercises (recommended)`: keep root exercise files (`<n>_<name>.asm`) as examples/reference.
+   - `Clean start`: remove root exercise files (`<n>_<name>.asm`) to start from zero.
 3. Remove agent memory history:
    - delete `teacher/memory/` contents (or the whole folder).
 4. Ask the agent to reset study files:
@@ -76,7 +76,7 @@ Use these steps when you want to start the course from a clean student workspace
 
 ## Repository Structure
 
-- `exercises/`: numbered practical exercises (`<n>_<name>.asm`)
+- project root: numbered practical exercises (`<n>_<name>.asm`)
 - `lib/`: reusable macros and helper libraries (screen, timing, math)
 - `study/`: topic notes (`basics`, `sprite`, `sid`, etc.)
 - `teacher/course/`: course plan and course progress
@@ -85,6 +85,51 @@ Use these steps when you want to start the course from a clean student workspace
 - `doc/`: manuals and C64/KickAssembler references
 - `assets/`: exercise assets
 - `assets/sprites/`, `assets/charsets/`, `assets/music/`: sprite, charset, and music assets
+- `.vscode/`: shared VS Code tasks/workspace automation
+
+## VS Code Build/Run
+
+- `.vscode/tasks.json` is versioned in this repository and defines shared build/run tasks.
+- Build output is always generated in root `bin/`.
+
+### Default usage
+
+1. `Ctrl+Shift+B`: runs the default build task (`Run with VICE`), which builds and starts VICE.
+2. `Terminal -> Run Task -> Build with Kick Assembler`: build only.
+3. `Terminal -> Run Task -> Run with C64 Debugger`: build and run in C64 Debugger.
+
+### Optional F7/F5 mapping
+
+If you want dedicated keys:
+
+1. Open `Preferences -> Keyboard Shortcuts (JSON)`.
+2. Add mappings for the task commands, for example:
+
+```json
+[
+  {
+    "key": "f7",
+    "command": "workbench.action.tasks.runTask",
+    "args": "Build with Kick Assembler"
+  },
+  {
+    "key": "f5",
+    "command": "workbench.action.tasks.runTask",
+    "args": "Run with VICE"
+  },
+  {
+    "key": "f6",
+    "command": "workbench.action.tasks.runTask",
+    "args": "Run with C64 Debugger"
+  }
+]
+```
+
+Important:
+
+- The KickAss VS Code extension also defines its own build/run/debug keybindings.
+- If those extension keybindings are active, they may bypass workspace task settings.
+- To force consistent output in root `bin/`, use the workspace tasks (or remap keys to the tasks as shown above).
 
 ## Suggested Workflow
 

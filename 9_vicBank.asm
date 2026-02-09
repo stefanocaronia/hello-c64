@@ -1,7 +1,7 @@
 // ESERCIZIO 9: VIC Bank
 // Sposta lo schermo nel bank 1 e scrivi qualcosa.
 BasicUpstart2(start)
-#import "../lib/screen.asm"
+#import "lib/screen.asm"
 
 // TODO: definisci le costanti che ti servono
 .const SCREEN = $4400
@@ -42,7 +42,7 @@ start:
 
 
 *=CHARSET "Charset"
-.import binary "../assets/charsets/charset-1.bin"
+.import binary "assets/charsets/charset-1.bin"
 
 
 

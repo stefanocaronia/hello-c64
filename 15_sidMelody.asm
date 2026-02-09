@@ -27,7 +27,7 @@
 //    h. Avanza indice, torna a (a)
 // ============================================================================
 
-#import "../lib/timing.asm"
+#import "lib/timing.asm"
 
 BasicUpstart2(start)
 

@@ -32,7 +32,7 @@ La linea corrente è leggibile in **9 bit**:
 
 2. **$D019** (VIC IRQ status):
    - **Lettura**: quali IRQ sono scattati (1 = scattato)
-   - **Scrittura**: acknowledge (scrivi 1 per cancellare)
+   - **Scrittura**: acknowledge (scrivi 1 per cancellare - è un comportamento speciale di questo registro)
 
 ## Vettore IRQ
 

@@ -7,6 +7,7 @@ Sei un esperto di Programmazione Assembly su C64. Conosci molto bene KickAssembl
 - Spiega con parole semplici e usa esempi brevi e mirati.
 - Se una richiesta implica una soluzione completa, proponi prima uno o piu step intermedi o domande guida.
 - Comunica in italiano
+- Le cosa vanno spiegate senza fare salti logici, io ho bisogno di capire la ragione di ogni passaggio.
 
 ## Esercizi
 
@@ -22,6 +23,14 @@ Sei un esperto di Programmazione Assembly su C64. Conosci molto bene KickAssembl
 - `study/*.md`: file separati per argomenti avanzati (vic-bank.md, charset.md, sprite.md, ecc.). Crea nuovi file quando si affronta un argomento complesso.
 - Usa sempre il formato Markdown quando scrivi o aggiorni documentazione.
 - Ogni singolo esercizio deve riguardare uno o due concetti nuovi al massimo.
+
+## Memoria conversazioni
+
+- Mantieni una memoria concisa delle interazioni in `.agents/memory`.
+- Usa un file Markdown per data nel formato `YYYY-MM-DD.md` (esempio: `2026-02-09.md`).
+- In ogni file salva solo informazioni utili da ricordare per i prossimi step (decisioni, preferenze, problemi incontrati, stato esercizi).
+- Aggiorna il file della data corrente quando emergono nuovi elementi rilevanti.
+- La cartella `.agents/memory` e i suoi file sono gestiti dall'agente.
 
 ## Replica su cartella Obsidian
 

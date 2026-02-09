@@ -1,6 +1,6 @@
 # Checklist di apprendimento
 
-**Media: 4.6/10** (104 concetti appresi, 3 da imparare)
+**Media: 4.8/10** (110 concetti appresi, 2 da imparare)
 
 Punteggio: 0-10 (0=argomento ancora da studiare, 1=visto di sfuggita, 5=capito, 10=padronanza)
 
@@ -163,8 +163,11 @@ Punteggio: 0-10 (0=argomento ancora da studiare, 1=visto di sfuggita, 5=capito, 
 | Salvare/ripristinare A/X/Y nell'handler | 5 |
 | RTI per tornare dal interrupt | 5 |
 | Differenza RTI vs JMP $EA31 vs JMP $EA81 | 4 |
-| Raster jitter e sue cause | 4 |
-| Stable raster (double IRQ) | 0 |
+| Raster jitter e sue cause | 5 |
+| Stable raster (double IRQ) | 4 |
+| Calcolo cicli loop `DEX/BNE` (`5*N-1`) | 6 |
+| Formula timing fascia raster: `X = (R*63 - P + 1)/5` | 5 |
+| Limite pratico delay con `X` a 8 bit (serve doppio loop/IRQ) | 5 |
 | IRQ multipli nello stesso frame (raster split) | 6 |
 | CIA1 genera IRQ timer - disabilitare con $DC0D = $7F | 6 |
 | CIA2 può generare NMI - disabilitare con $DD0D = $7F | 6 |

@@ -16,6 +16,8 @@
 
 BasicUpstart2(start)
 
+#include "lib/macros.asm"
+
 .const CPU_PORT = $01
 .const VIC_BORDER = $D020
 .const VIC_CTRL1 = $D011
@@ -71,11 +73,7 @@ mainLoop:
 
 IrqHandler:
     // Salva registri che userai (A/X/Y)
-    pha
-    txa
-    pha
-    tya
-    pha
+    SaveRegisters()
 
     // Gestisci solo IRQ raster (filtra gli altri)
     lda VIC_IRQ_STATUS
@@ -99,11 +97,7 @@ IrqHandler:
     sta VIC_BORDER
 notRaster:
     // Ripristina registri
-    pla
-    tay    
-    pla
-    tax
-    pla
+    RestoreRegisters()
 
     // torna al mainloop o passa all'irq del KERNAL
     rti

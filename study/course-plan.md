@@ -19,9 +19,9 @@ Portarti da livello base a livello intermedio solido su C64 Assembly, con eserci
 | Puntatori, 16 bit, matematica | Punto piu debole tra gli argomenti gia toccati | Alta |
 | VIC-II (bank/screen/charset) | Base discreta, mancano pezzi importanti (copy charset) | Alta |
 | Sprite e joystick | Base buona, manca il blocco collisioni | Media |
-| IRQ/raster | Buona base pratica, manca stable raster | Media |
+| IRQ/raster | Buona base pratica; stable raster in progresso (quiz timing superati) | Media |
 | SID | Buon livello base + player SF2 funzionante | Media |
-| Argomenti a score 0 | Non ancora studiati | Pianificata |
+| Argomenti a score 0 | Restano 2 argomenti non ancora studiati | Pianificata |
 
 ## Moduli del corso
 
@@ -77,10 +77,14 @@ Portarti da livello base a livello intermedio solido su C64 Assembly, con eserci
 ### Modulo 6 - IRQ e raster avanzato
 
 - Stato: `In corso`
-- Preparazione attuale: raster IRQ e split funzionano; stable raster non ancora studiato.
+- Preparazione attuale: raster IRQ e split funzionano; stable raster avviato con buona comprensione teorica.
 - Uscita modulo:
   - Gestire IRQ robusti con save/restore e ack corretti.
   - Implementare stable raster (double IRQ) in esempio minimo.
+- Esito quiz rapido (E17):
+  - Equazione cicli risolta correttamente (`5*n-1+2=126 -> n=25`).
+  - Formula generale impostata correttamente (`X = (R*63 - P + 1)/5`).
+  - Vincolo `X` a 8 bit compreso (per fasce alte serve catena IRQ o doppio loop).
 
 ### Modulo 7 - SID base e player SF2
 
@@ -102,13 +106,12 @@ Portarti da livello base a livello intermedio solido su C64 Assembly, con eserci
 
 1. Copia Character ROM nel bank RAM.
 2. Collisioni sprite (`$D01E/$D01F`).
-3. Stable raster (double IRQ).
 
 ## Prossimi esercizi consigliati
 
 1. `17_charsetCopy.asm` - copia charset ROM in RAM e attivazione via `$D018`.
 2. `18_spriteCollision.asm` - rilevazione collisione sprite/sfondo e reset flag.
-3. `19_stableRaster.asm` - schema double IRQ minimo con verifica jitter.
+3. `19_stableRaster.asm` - completare catena 3 IRQ (`arm/top/bottom`) per fascia stabile.
 
 ## Regola di manutenzione del piano
 

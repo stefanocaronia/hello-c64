@@ -17,6 +17,7 @@
 // ============================================================
 
 BasicUpstart2(start)
+
 #import "lib/math.asm"
 #import "lib/screen.asm"
 

@@ -27,9 +27,6 @@
 // - Bit 4 = Fuoco   (0 = premuto)
 // ============================================================================
 
-#import "lib/screen.asm"
-#import "lib/macros.asm"
-
 BasicUpstart2(start)
 
 // Hardware registers (VIC)
@@ -87,6 +84,9 @@ BasicUpstart2(start)
 
 // Screen address
 .label SCREEN = $0400
+
+#import "lib/screen.asm"
+#import "lib/macros.asm"
 
 // ============================================================================
 // SETUP

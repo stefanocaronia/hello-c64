@@ -1,6 +1,6 @@
 # Progressi Corso
 
-**Media: 4.8/10** (110 concetti appresi, 2 da imparare)
+**Media: 4.9/10** (111 concetti appresi, 1 da imparare)
 
 Punteggio: 0-10 (0=argomento ancora da studiare, 1=visto di sfuggita, 5=capito, 10=padronanza)
 
@@ -146,7 +146,7 @@ Punteggio: 0-10 (0=argomento ancora da studiare, 1=visto di sfuggita, 5=capito, 
 | MSB per posizione X > 255 ($D010) | 4 |
 | Movimento sprite con input | 4 |
 | Sprite multicolor | 4 |
-| Collisioni sprite | 0 |
+| Collisioni sprite | 5 |
 
 ## IRQ e Interrupt
 
@@ -183,7 +183,7 @@ Punteggio: 0-10 (0=argomento ancora da studiare, 1=visto di sfuggita, 5=capito, 
 | Pattern LSR + BCS per testare direzioni in sequenza | 7 |
 | Pattern AND + BEQ per testare singolo bit | 6 |
 | CIA1 ICR ($DC0D) per gestione interrupt CIA | 6 |
-| Game loop pattern: input in mainLoop, movimento in IRQ | 6 |
+| Game loop pattern: input in mainLoop, movimento in IRQ | 7 |
 
 ## Bitshift e operazioni sui bit
 

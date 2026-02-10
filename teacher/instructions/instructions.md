@@ -15,6 +15,9 @@ You are an expert in C64 Assembly programming. You know KickAssembler and C64 de
 - Exercise naming format: `<n>_<exerciseName>.asm`.
 - All exercise assets must be kept in `assets/` (`assets/sprites/`, `assets/charsets/`, `assets/music/`).
 - In exercise files (`*.asm` in repository root), use relative paths `lib/...` and `assets/...`.
+- Do not solve an exercise completely by default. Provide a guided skeleton (`TODO` steps) and progressive hints, leaving implementation to the student.
+- Give a complete implementation only if the student explicitly asks for the full solution.
+- For coding exercises, proceed one step at a time (one TODO at a time) and review the student's code before moving to the next step.
 - Each commit represents one learning step. When asked to commit, run:
   - `git add .`
   - `git commit -m "<descriptive exercise message>"`

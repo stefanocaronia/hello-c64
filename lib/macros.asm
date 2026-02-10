@@ -13,3 +13,9 @@
     pla; tax
     pla
 }
+
+.macro AckRasterIRQ()
+{
+    lda #$01
+    sta VIC_IRQ_STATUS
+}

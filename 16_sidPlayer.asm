@@ -146,5 +146,5 @@ done:
 // MUSIC DATA
 // ============================================================================
 *=MUSIC_INIT "Music"
-.import binary "assets/music/test2.prg", 2    // skip 2-byte PRG header
+.import binary "assets/music/hubbard.prg", 2    // skip 2-byte PRG header
 

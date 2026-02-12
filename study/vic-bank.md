@@ -25,6 +25,33 @@ sta $DD00
 
 ---
 
+## VIC vs CPU: due "viste" diverse
+
+Quando diciamo "il VIC vede", parliamo di dove **il chip video** legge i dati per disegnare.
+La CPU (il tuo codice Assembly) non ha sempre la stessa vista.
+
+- **Vista VIC (grafica):**
+  - in bank 0: charset ROM visibile a offset `+$1000`
+  - in bank 2: charset ROM visibile a offset `+$1000` del bank (indirizzo assoluto `$9000`)
+- **Vista CPU (6510):**
+  - l'area `$D000-$DFFF` e' una finestra mappata
+  - con `CHAREN=1` (default) vedi I/O (VIC/SID/CIA)
+  - con `CHAREN=0` vedi Character ROM (utile per copiarla in RAM)
+
+Quindi non sposti nulla fisicamente: cambi solo **cosa e' visibile** in quella finestra.
+
+### Flusso pratico per copiare il charset ROM
+
+1. Salva il valore corrente di `$01`.
+2. Metti `CHAREN=0` (es. configurazione `$33`) per leggere la Character ROM da `$D000-$D7FF`.
+3. Copia 2048 byte in una zona RAM del bank VIC scelto.
+4. Ripristina il valore originale di `$01`.
+5. Imposta `$D018` per far leggere al VIC il charset RAM.
+
+Nota: mentre `CHAREN=0`, i registri I/O in `$D000-$DFFF` non sono visibili alla CPU.
+
+---
+
 ## Offset schermo e charset ($D018)
 
 Dentro il bank corrente, $D018 imposta gli offset:

@@ -1,6 +1,6 @@
 # Progressi Corso
 
-**Media: 4.9/10** (111 concetti appresi, 1 da imparare)
+**Media: 5.0/10** (112 concetti appresi, 0 da imparare)
 
 Punteggio: 0-10 (0=argomento ancora da studiare, 1=visto di sfuggita, 5=capito, 10=padronanza)
 
@@ -128,9 +128,9 @@ Punteggio: 0-10 (0=argomento ancora da studiare, 1=visto di sfuggita, 5=capito, 
 |----------|-------|
 | Il VIC vede solo 16KB alla volta (4 bank) | 5 |
 | Selezione bank via $DD00 bit 0-1 (valori invertiti) | 4 |
-| $D018 imposta offset schermo (bit 4-7) e charset (bit 1-3) | 6 |
+| $D018 imposta offset schermo (bit 4-7) e charset (bit 1-3) | 7 |
 | Bank 0 e 2 hanno Character ROM a $1000/$9000 | 4 |
-| Copiare Character ROM nel bank | 0 |
+| Copiare Character ROM nel bank | 6 |
 
 ## Sprite
 
@@ -155,7 +155,7 @@ Punteggio: 0-10 (0=argomento ancora da studiare, 1=visto di sfuggita, 5=capito, 
 | SEI/CLI per disabilitare/abilitare interrupt globali | 5 |
 | Vettore IRQ hardware $FFFE/$FFFF (con KERNAL off) | 5 |
 | Vettore IRQ KERNAL $0314/$0315 (con KERNAL on) | 4 |
-| Processor Port $01 per bank switching ROM/RAM | 5 |
+| Processor Port $01 per bank switching ROM/RAM | 6 |
 | Configurazione $35 = KERNAL off, I/O on | 5 |
 | Raster line a 9 bit: $D012 (low) + $D011 bit 7 (high) | 5 |
 | Abilitare raster IRQ con $D01A bit 0 | 5 |

@@ -1,6 +1,6 @@
 # Progressi Corso
 
-**Media: 5.0/10** (112 concetti appresi, 0 da imparare)
+**Media: 5.1/10** (113 concetti appresi, 0 da imparare)
 
 Punteggio: 0-10 (0=argomento ancora da studiare, 1=visto di sfuggita, 5=capito, 10=padronanza)
 
@@ -146,7 +146,8 @@ Punteggio: 0-10 (0=argomento ancora da studiare, 1=visto di sfuggita, 5=capito, 
 | MSB per posizione X > 255 ($D010) | 4 |
 | Movimento sprite con input | 4 |
 | Sprite multicolor | 4 |
-| Collisioni sprite | 5 |
+| Collisioni sprite | 6 |
+| Collisioni sprite-sfondo ($D01F) | 6 |
 
 ## IRQ e Interrupt
 

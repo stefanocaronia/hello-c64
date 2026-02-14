@@ -4,11 +4,12 @@
 // Obiettivo:
 // - Muovere sprite 0 nel raster IRQ (1 update/frame)
 // - Rilevare collisione sprite 0 <-> sprite 1 con $D01E
+// - Rilevare collisione sprite 0 <-> background con $D01F
 // - Mostrare feedback visivo sul bordo
 //
 // Concetti focus:
 // 1) Movimento/input dentro handler IRQ
-// 2) Registro collisioni sprite-sprite ($D01E) con bitmask
+// 2) Registri collisione VIC-II ($D01E e $D01F) con bitmask
 //
 // Nota:
 // I due sprite "palla" sono embedded in fondo al file, come richiesto.
@@ -25,6 +26,7 @@ BasicUpstart2(start)
 .label VIC_RASTER = $D012
 .label VIC_IRQ_STATUS = $D019
 .label VIC_IRQ_ENABLE = $D01A
+.label VIC_SCREEN = $0400
 
 .label VIC_SPR_EN = $D015
 .label VIC_SPR_MSB_X = $D010
@@ -35,6 +37,7 @@ BasicUpstart2(start)
 .label VIC_SPR0_COLOR = $D027
 .label VIC_SPR1_COLOR = $D028
 .label VIC_SPR_COLL = $D01E
+.label VIC_SPR_BG_COLL = $D01F
 
 // CIA + CPU port
 .label CIA1_PORT_A = $DC00
@@ -54,14 +57,17 @@ BasicUpstart2(start)
 .label SPR_PTR1 = $07F9
 
 // Costanti
-.label ColorIdle = 6       // blu
-.label ColorHit = 2        // rosso
-.label ColorBg = 0         // nero
+.label ColorIdle = BLUE             
+.label ColorHitSprite = RED         
+.label ColorHitBackground = YELLOW  
+.label ColorBg = BLACK              
 
 .label MinX = 24
 .label MaxX = 232
 .label MinY = 50
 .label MaxY = 229
+
+.label ZP = $FB
 
 .label RasterLine = 120
 
@@ -71,6 +77,24 @@ BasicUpstart2(start)
 start:
     jsr KERNAL_CLEAR_SCREEN
     sei
+
+
+    // muro di cuori
+heart:
+    ldx #0
+heartWallLoop:
+    lda positions.lo,x
+    sta ZP
+    lda positions.hi,x
+    sta ZP+1
+
+    lda #$53 // cuoricino
+    ldy #0
+    sta (ZP),y
+        
+    inx
+    cpx #25
+    bne heartWallLoop
 
     // IRQ CIA off
     lda #$7F
@@ -183,15 +207,23 @@ CollisionCheck: {
     // Collisione sprite-sprite:
     // - legge $D01E
     // - isola bit0/bit1 (sprite 0/1)
-    // - se almeno uno dei due bit e' attivo, bordo rosso
+    // - se entrambi i bit sono attivi, bordo rosso
     lda VIC_SPR_COLL
     and #%00000011
-    bne hit
+    cmp #%00000011
+    beq hitSprite
+    lda VIC_SPR_BG_COLL
+    and #%00000001
+    bne hitBackground
     lda #ColorIdle
     sta VIC_BORDER
     jmp !exit+
-hit:
-    lda #ColorHit
+hitSprite:
+    lda #ColorHitSprite
+    sta VIC_BORDER
+    jmp !exit+
+hitBackground:
+    lda #ColorHitBackground
     sta VIC_BORDER
 !exit:
     rts
@@ -267,6 +299,8 @@ canMoveRight:
 !:
     rts
 }
+
+positions: .lohifill 25, VIC_SCREEN + (i*40) + 20
 
 // ============================================================================
 // Sprite data embedded

@@ -20,6 +20,8 @@ Il VIC-II gestisce 8 sprite hardware, numerati 0-7.
 | $D01B | Priorità sprite/sfondo |
 | $D01C | Modalità multicolor |
 | $D01D | Espansione X |
+| $D01E | Collisioni sprite-sprite |
+| $D01F | Collisioni sprite-sfondo |
 | $D027-$D02E | Colori sprite 0-7 |
 
 ## Sprite pointer
@@ -114,6 +116,23 @@ sta $D025         // colore multicolor 0
 lda #2
 sta $D026         // colore multicolor 1
 // $D027 rimane il colore principale dello sprite
+```
+
+## Collisioni hardware
+
+- `$D01E`: collisioni sprite-sprite
+- `$D01F`: collisioni sprite-sfondo (background)
+- Ogni bit corrisponde allo sprite 0-7.
+- I bit restano settati finche' non leggi il registro (la lettura lo resetta).
+- La collisione sprite-sfondo avviene contro pixel "attivi" del background, non solo per presenza di una cella char.
+
+Esempio rapido (`sprite 0` contro `sprite 1`):
+
+```asm
+lda $D01E
+and #%00000011
+cmp #%00000011
+beq collisione
 ```
 
 ## Tool consigliati

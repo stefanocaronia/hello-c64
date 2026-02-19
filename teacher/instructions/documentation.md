@@ -1,15 +1,41 @@
 # Documentation
 
-## Documentation in `doc` folder
+## Local documentation
+
+### Core C64 references
 
 - `doc/Commodore 64 Programmer's Reference Guide.pdf`
 - `doc/Commodore 64 User's Guide.pdf`
-- `doc/KickAssembler.pdf`
+- `doc/C64 memory overview.md`
 - `doc/Commodore 64 memory map.md` - PRIMARY reference for C64 memory. Always consult this file for addresses, VIC-II registers, SID, CIA, Zero Page, etc.
 - `doc/c64-sound-frequencies-440hz-PAL.md`
+
+### Development and tooling
+
+- `doc/KickAssembler.pdf`
+- `doc/DebuggerReadme.md`
+- `doc/NamingConventions.md`
+- `doc/onlinetools.md`
+
+### Charpad
+
+- `doc/Charpad/01-overview.md`
+- `doc/Charpad/02-editors.md`
+- `doc/Charpad/03-tiles-and-maps.md`
+- `doc/Charpad/04-materials-and-attributes.md`
+- `doc/Charpad/05-import-export.md`
+
+### SID Factory II
+
 - `doc/SID Factory II/user_manual.pdf`
 - `doc/SID Factory II/user_manual.md`
 - `doc/SID Factory II/notes.md`
+- `doc/SID Factory II/notes_driver11.md`
+- `doc/SID Factory II/notes_driver12.md`
+- `doc/SID Factory II/notes_driver13.md`
+- `doc/SID Factory II/notes_driver14.md`
+- `doc/SID Factory II/notes_driver15.md`
+- `doc/SID Factory II/notes_driver16.md`
 - `doc/SID Factory II/faq.md`
 - `doc/SID Factory II/converter.md`
 

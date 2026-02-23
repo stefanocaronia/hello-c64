@@ -67,6 +67,7 @@ start:
     // Set background and border colors
     lda #COLORS.BLACK
     sta VIC_BORDER
+    lda #COLORS.BLACK
     sta VIC_BACKGROUND
 
     // Set multicolor colors
@@ -100,7 +101,7 @@ start:
     dex
     bne !loop-
 
-    ldx #192
+    ldx #232
 !loop:
     lda (ZP_SRC),y
     sta (ZP_DST),y   
@@ -116,7 +117,7 @@ start:
     sta ZP_SRC
     lda #>MAP
     sta ZP_SRC+1
-    
+
     lda #<COLOR
     sta ZP_DST
     lda #>COLOR
@@ -139,7 +140,7 @@ start:
     dex
     bne !loop-
 
-    ldx #192
+    ldx #232
 !loop:
     txa
     pha
@@ -171,5 +172,5 @@ jmp *
 .import binary "assets/maps/classroom/classroom_charset_attr.bin", 0, $40
 
 * = MAP "Map"
-.import binary "assets/maps/classroom/classroom_map.bin", 0, 960
+.import binary "assets/maps/classroom/classroom_map.bin", 0, 1000
 

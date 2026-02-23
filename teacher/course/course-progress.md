@@ -211,3 +211,20 @@ Punteggio: 0-10 (0=argomento ancora da studiare, 1=visto di sfuggita, 5=capito, 
 | Player SF2: INIT una volta + TICK a ogni frame in IRQ | 7 |
 | Entry point del TICK non fisso: va verificato nel PRG packato | 7 |
 | Zero page del player scelta nel pack: evitare conflitti con ZP utente | 6 |
+
+## CharPad e Tilemap
+
+| Concetto | Score |
+|----------|-------|
+| Creare progetto CharPad: display mode, colouring method, tile on/off | 5 |
+| Disegnare character in multicolour (4 penne: Bg/Fg/M1/M2) | 4 |
+| Assegnare material ai character per collision detection | 5 |
+| Dipingere mappa nel Map Editor | 5 |
+| Export binari da CharPad (charset, attributi, mappa) | 6 |
+| Import binari in assembly con `.import binary` e `*=` | 6 |
+| Text Multicolour mode: $D016 bit 4, colori $D022/$D023 | 5 |
+| Colour RAM: colore 0-7 = HR, colore 8-15 = MC (bit 3 = flag) | 4 |
+| VIC Bank selection via $DD00 (bit invertiti!) | 5 |
+| Copia blocco memoria multi-pagina con puntatori zero page | 4 |
+| Lookup indiretta: leggere char index → cercare attributo in tabella | 4 |
+| Attribute byte: high nybble = material, low nybble = colour (AND #$0F) | 5 |

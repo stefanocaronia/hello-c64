@@ -123,41 +123,38 @@ start:
     lda #>COLOR
     sta ZP_DST+1
 
-    ldx #3
+    lda #3
+    sta counter
     ldy #0
 !loop:
-    txa; pha
     lda (ZP_SRC),y
     tax
     lda CHAR_ATTR,x
     and #%00001111
     sta (ZP_DST),y
-    pla; tax
     iny
     bne !loop-
     inc ZP_SRC+1
     inc ZP_DST+1
-    dex
+    dec counter
     bne !loop-
 
-    ldx #232
+    lda #232
+    sta counter
 !loop:
-    txa
-    pha
     lda (ZP_SRC),y
     tax
     lda CHAR_ATTR,x
     and #%00001111
     sta (ZP_DST),y
-    pla
-    tax
     iny
-    dex
+    dec counter
     bne !loop-
 
-
-
 jmp *
+
+// Variables
+counter: .byte 0
 
 
 // TODO 2: Importa i dati binari da CharPad.

@@ -1,6 +1,6 @@
 # Progressi Corso
 
-**Media: 5.1/10** (113 concetti appresi, 0 da imparare)
+**Media: 5.5/10** (114 concetti appresi, 0 da imparare)
 
 Punteggio: 0-10 (0=argomento ancora da studiare, 1=visto di sfuggita, 5=capito, 10=padronanza)
 
@@ -43,7 +43,7 @@ Punteggio: 0-10 (0=argomento ancora da studiare, 1=visto di sfuggita, 5=capito, 
 | Concetto | Score |
 |----------|-------|
 | Definire stringhe con `.encoding` + `.text` + terminatore `0` | 3 |
-| Puntatori in zero page e indirizzamento `(PNT),y` | 4 |
+| Puntatori in zero page e indirizzamento `(PNT),y` | 6 |
 | Aggiunta di un offset a un puntatore (lo/hi con carry) | 3 |
 
 ## VIC-II e doppio schermo
@@ -89,7 +89,7 @@ Punteggio: 0-10 (0=argomento ancora da studiare, 1=visto di sfuggita, 5=capito, 
 | Calcolo indirizzo schermo: SCREEN + Y*40 + X | 3 |
 | Moltiplicazione 8x8 bit con risultato 16 bit (shift-and-add) | 2 |
 | Uso di libreria esterna con `#import` | 5 |
-| Indirizzamento indiretto indicizzato `(ZP),y` | 4 |
+| Indirizzamento indiretto indicizzato `(ZP),y` | 6 |
 | Aritmetica a 16 bit (somma con carry su due byte) | 3 |
 
 ## Sintassi KickAssembler avanzata
@@ -110,7 +110,7 @@ Punteggio: 0-10 (0=argomento ancora da studiare, 1=visto di sfuggita, 5=capito, 
 |----------|-------|
 | Lo stack è in pagina 1 ($0100-$01FF), cresce verso il basso | 4 |
 | `PHA` salva A sullo stack, `PLA` lo recupera | 4 |
-| Per salvare X: `TXA` + `PHA`, per ripristinare: `PLA` + `TAX` | 3 |
+| Per salvare X: `TXA` + `PHA`, per ripristinare: `PLA` + `TAX` | 4 |
 | Regola LIFO: ultimo salvato = primo recuperato | 4 |
 | Convenzione: chi modifica un registro lo salva e ripristina | 3 |
 
@@ -225,6 +225,7 @@ Punteggio: 0-10 (0=argomento ancora da studiare, 1=visto di sfuggita, 5=capito, 
 | Text Multicolour mode: $D016 bit 4, colori $D022/$D023 | 5 |
 | Colour RAM: colore 0-7 = HR, colore 8-15 = MC (bit 3 = flag) | 4 |
 | VIC Bank selection via $DD00 (bit invertiti!) | 5 |
-| Copia blocco memoria multi-pagina con puntatori zero page | 4 |
-| Lookup indiretta: leggere char index → cercare attributo in tabella | 4 |
+| Copia blocco memoria multi-pagina con puntatori zero page | 5 |
+| Lookup indiretta: leggere char index → cercare attributo in tabella | 5 |
+| Alternativa allo stack: usare variabile RAM come contatore (counter pattern) | 5 |
 | Attribute byte: high nybble = material, low nybble = colour (AND #$0F) | 5 |

@@ -126,13 +126,23 @@ sta $D026         // colore multicolor 1
 - I bit restano settati finche' non leggi il registro (la lettura lo resetta).
 - La collisione sprite-sfondo avviene contro pixel "attivi" del background, non solo per presenza di una cella char.
 
-Esempio rapido (`sprite 0` contro `sprite 1`):
+**Attenzione - Clear on Read:** leggi il registro UNA SOLA VOLTA per frame e salva il risultato. La seconda lettura restituisce 0!
 
 ```asm
-lda $D01E
-and #%00000011
-cmp #%00000011
-beq collisione
+// SBAGLIATO: la seconda LDA legge 0
+LDA $D01E
+AND #%00000011
+BNE coll_01
+LDA $D01E           // ← già azzerato!
+
+// CORRETTO: salva e riusa la copia
+LDA $D01E
+STA collTemp        // salva
+AND #%00000011
+BNE coll_01
+LDA collTemp        // rileggi dalla copia
+AND #%00001100
+BNE coll_23
 ```
 
 ## Tool consigliati

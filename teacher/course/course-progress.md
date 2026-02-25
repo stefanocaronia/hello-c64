@@ -1,6 +1,6 @@
 # Progressi Corso
 
-**Media: 5.5/10** (114 concetti appresi, 0 da imparare)
+**Media: 5.0/10** (137 concetti appresi, 0 da imparare)
 
 Punteggio: 0-10 (0=argomento ancora da studiare, 1=visto di sfuggita, 5=capito, 10=padronanza)
 
@@ -148,6 +148,7 @@ Punteggio: 0-10 (0=argomento ancora da studiare, 1=visto di sfuggita, 5=capito, 
 | Sprite multicolor | 4 |
 | Collisioni sprite | 6 |
 | Collisioni sprite-sfondo ($D01F) | 6 |
+| Collision registers clear-on-read: salvare in variabile prima di testare | 5 |
 
 ## IRQ e Interrupt
 
@@ -195,6 +196,7 @@ Punteggio: 0-10 (0=argomento ancora da studiare, 1=visto di sfuggita, 5=capito, 
 | BCS salta se Carry=1, BCC salta se Carry=0 | 7 |
 | AND con maschera per isolare bit specifici | 6 |
 | ORA per settare bit, AND per clearare bit | 5 |
+| EOR per invertire (toggle) bit specifici | 4 |
 
 ## SID (Sound Interface Device)
 
@@ -229,3 +231,22 @@ Punteggio: 0-10 (0=argomento ancora da studiare, 1=visto di sfuggita, 5=capito, 
 | Lookup indiretta: leggere char index → cercare attributo in tabella | 5 |
 | Alternativa allo stack: usare variabile RAM come contatore (counter pattern) | 5 |
 | Attribute byte: high nybble = material, low nybble = colour (AND #$0F) | 5 |
+
+## Self-Modifying Code
+
+| Concetto | Score |
+|----------|-------|
+| Il codice può modificare i propri byte di istruzione in RAM a runtime | 4 |
+| INC su byte alto di un indirizzo per avanzare di pagina (+256 byte) | 4 |
+| Label sulle istruzioni da modificare per evitare conteggi manuali dei byte | 4 |
+| Confronto SMC vs Zero Page: SMC più veloce ma solo per accesso lineare | 4 |
+
+## Modalità di indirizzamento 6502
+
+| Concetto | Score |
+|----------|-------|
+| Immediato (`LDA #$35`): 2 cicli, valore nell'istruzione | 6 |
+| Zero Page (`LDA $35`): 3 cicli, più veloce di Absolute | 5 |
+| Absolute (`LDA $0400`): 4 cicli | 5 |
+| Zero Page vs Absolute: stesso indirizzo, ZP è 1 ciclo più veloce | 5 |
+| Relativo: usato SOLO dai branch (BEQ, BNE...), offset -128/+127 | 5 |

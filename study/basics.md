@@ -40,6 +40,50 @@ lda #$93      // CLR/HOME (clear screen)
 jsr $ffd2     // CHROUT
 ```
 
+## Operazioni bitwise
+
+| Operazione | Istruzione | Scopo | Maschera |
+|-----------|-----------|-------|----------|
+| **AND** | `AND #mask` | Azzerare bit (clear) | 0 = azzera, 1 = lascia |
+| **ORA** | `ORA #mask` | Settare bit a 1 (set) | 1 = setta, 0 = lascia |
+| **EOR** | `EOR #mask` | Invertire bit (toggle) | 1 = inverte, 0 = lascia |
+
+```asm
+// Invertire solo il bit 3
+LDA valore
+EOR #%00001000    // inverte bit 3, lascia tutti gli altri
+
+// Pattern AND + ORA per modificare un campo di bit
+LDA registro
+AND #%11110000    // azzera bit 0-3
+ORA #%00001000    // scrivi nuovo valore nei bit 0-3
+STA registro
+```
+
+## Self-Modifying Code
+
+Il codice modifica i propri byte in RAM durante l'esecuzione.
+`LDA $6000,X` in memoria = 3 byte: `$BD $00 $60`. Facendo `INC` sul byte alto (`$60`→`$61`), l'istruzione diventa `LDA $6100,X`.
+
+```asm
+    ldx #0
+    ldy #4              // 4 pagine = 1024 byte
+loop:
+    lda source,x        // ← verrà modificata
+loop_sta:
+    sta dest,x          // ← verrà modificata
+    inx
+    bne loop
+    inc loop+2          // byte alto di LDA
+    inc loop_sta+2      // byte alto di STA (label per non contare a mano!)
+    dey
+    bne loop
+```
+
+**Quando usare cosa:**
+- Copia lineare (fill, blocco A→B) → self-modifying code (4 cicli, più veloce)
+- Accesso dinamico (tilemap, puntatori variabili) → zero page + `(ZP),Y` (5 cicli, più flessibile)
+
 ## Argomenti avanzati
 
 Vedi file separati:

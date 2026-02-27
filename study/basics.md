@@ -60,6 +60,32 @@ ORA #%00001000    // scrivi nuovo valore nei bit 0-3
 STA registro
 ```
 
+## Lookup Table con .lohifill
+
+`.lohifill` genera due tabelle consecutive a compile-time: prima N byte bassi (lo), poi N byte alti (hi). La variabile `i` va da 0 a N-1.
+
+```asm
+// Genera tabella con indirizzi centro di ogni riga schermo
+positions: .lohifill 25, SCREEN + (i*40) + 20
+```
+
+Produce 50 byte in memoria:
+```
+positions.lo: $14, $3C, $64, $8C, ...   // 25 byte bassi
+positions.hi: $04, $04, $04, $04, ...   // 25 byte alti
+```
+
+Accesso con X come indice:
+```asm
+lda positions.lo,x    // byte basso dell'indirizzo riga X
+sta ZP
+lda positions.hi,x    // byte alto
+sta ZP+1
+// ora (ZP),Y punta alla riga X dello schermo
+```
+
+**Quando usare:** accesso non lineare a indirizzi precalcolati (righe schermo, tile offsets, tabelle seno/coseno). Non serve per copie sequenziali dove basta incrementare di pagina.
+
 ## Self-Modifying Code
 
 Il codice modifica i propri byte in RAM durante l'esecuzione.
@@ -93,6 +119,7 @@ Vedi file separati:
 - [raster-irq.md](raster-irq.md) - Raster IRQ
 - [joystick.md](joystick.md) - Joystick e CIA
 - [sid.md](sid.md) - SID sound chip
+- [math.md](math.md) - Aritmetica 6502 (Carry, ADC, ASL, ROL)
 
 ## Encoding e stringhe
 

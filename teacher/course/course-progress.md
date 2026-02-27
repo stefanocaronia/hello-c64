@@ -1,6 +1,6 @@
 # Progressi Corso
 
-**Media: 5.0/10** (137 concetti appresi, 0 da imparare)
+**Media: 4.9/10** (142 concetti appresi, 0 da imparare)
 
 Punteggio: 0-10 (0=argomento ancora da studiare, 1=visto di sfuggita, 5=capito, 10=padronanza)
 
@@ -87,10 +87,15 @@ Punteggio: 0-10 (0=argomento ancora da studiare, 1=visto di sfuggita, 5=capito, 
 | Concetto | Score |
 |----------|-------|
 | Calcolo indirizzo schermo: SCREEN + Y*40 + X | 3 |
-| Moltiplicazione 8x8 bit con risultato 16 bit (shift-and-add) | 2 |
+| Moltiplicazione 8x8 bit con risultato 16 bit (shift-and-add) | 3 |
 | Uso di libreria esterna con `#import` | 5 |
 | Indirizzamento indiretto indicizzato `(ZP),y` | 6 |
-| Aritmetica a 16 bit (somma con carry su due byte) | 3 |
+| Aritmetica a 16 bit (somma con carry su due byte) | 4 |
+| Carry flag: riporto della somma, ADC fa A + valore + Carry | 4 |
+| ASL moltiplica per 2, bit 7 esce nel Carry | 4 |
+| ROL raccoglie Carry nel bit 0 (shift 16-bit con coppia ASL/ROL) | 3 |
+| Decomposizione moltiplicazione: 40 = 32+8, N*40 = N*32 + N*8 | 3 |
+| `adc #0` per propagare solo il carry al byte alto | 4 |
 
 ## Sintassi KickAssembler avanzata
 

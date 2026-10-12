@@ -138,3 +138,11 @@ Important:
 3. Update [teacher/course/course-progress.md](teacher/course/course-progress.md) and [teacher/course/course-plan.md](teacher/course/course-plan.md).
 4. Run notes backup using [teacher/prompt/notes-backup.md](teacher/prompt/notes-backup.md).
 5. Commit the learning step.
+
+## Development notes
+
+Developed with the help of AI coding agents. Everything is designed, reviewed and tested by the project maintainer.
+
+**We encourage everyone to use AI for their own purposes.**  
+The means of production should belong to the people.  
+Fight corporate control of technology, not our right to use it.

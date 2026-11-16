@@ -1,5 +1,7 @@
 # Documentation
 
+Look things up in this order: the local Markdown files, then the web pages, then the local PDFs (large: read only the pages you need).
+
 ## Local documentation
 
 ### Core C64 references
@@ -41,7 +43,6 @@
 
 ## Web Documentation
 
-C64 memmap: http://sta.c64.org/cbm64mem.html
 C64 opcodes: http://www.oxyron.de/html/opcodes02.html
 
 ### KickAssembler (official, manuals, examples)

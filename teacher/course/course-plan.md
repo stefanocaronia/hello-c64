@@ -35,6 +35,7 @@ Al termine del percorso dovrai saper:
 - Esercizi consigliati:
   - compilazione e avvio file minimale;
   - prova breakpoint su una routine semplice.
+- Esercizi nel repository: `0_loadingScreen.asm`, `00_labels.asm`.
 - Uscita modulo:
   - sai compilare, eseguire e ispezionare memoria/registri senza supporto.
 
@@ -49,6 +50,7 @@ Al termine del percorso dovrai saper:
 - Esercizi consigliati:
   - stampa caratteri e pattern;
   - routine di clear screen strutturata.
+- Esercizi nel repository: `1_printChars.asm`, `5_stack.asm`.
 - Uscita modulo:
   - sai scrivere routine leggibili per disegno testo/attributi a schermo.
 
@@ -61,7 +63,8 @@ Al termine del percorso dovrai saper:
   - loop di update con controllo timing elementare.
 - Esercizi consigliati:
   - movimento di un cursore/oggetto con limiti schermo;
-  - gestione input multiplo con priorita` definite.
+  - gestione input multiplo con priorità definite.
+- Esercizi nel repository: `3_keyboardInput.asm`, `4_moveCharacter.asm`, `13_joystickRasterBar.asm`.
 - Uscita modulo:
   - sai implementare un loop input->update->render senza blocchi.
 
@@ -76,6 +79,7 @@ Al termine del percorso dovrai saper:
 - Esercizi consigliati:
   - print stringa via puntatore ZP;
   - calcolo `SCREEN + y*40 + x` con tabella.
+- Esercizi nel repository: `6_printString.asm`, `7_printStringZP.asm`, `8_lookupTable.asm`.
 - Uscita modulo:
   - sai gestire dati dinamici e indirizzamento senza errori di pagina.
 
@@ -90,12 +94,13 @@ Al termine del percorso dovrai saper:
 - Esercizi consigliati:
   - switch tra screen buffer;
   - set caratteri personalizzati per HUD.
+- Esercizi nel repository: `2_twoScreens.asm`, `9_vicBank.asm`, `9b_copyCharsetRom.asm`.
 - Uscita modulo:
   - sai configurare layout video adatto a UI + area gioco.
 
 ### Modulo 5 - Sprite e movimento fluido
 
-- Obiettivo: costruire entita` di gioco con sprite hardware.
+- Obiettivo: costruire entità di gioco con sprite hardware.
 - Prerequisiti: Modulo 4.
 - Contenuti:
   - enable/posizione/colore sprite;
@@ -103,7 +108,8 @@ Al termine del percorso dovrai saper:
   - multicolor sprite.
 - Esercizi consigliati:
   - player sprite con movimento 4 direzioni;
-  - gestione limiti schermo e velocita` costante.
+  - gestione limiti schermo e velocità costante.
+- Esercizi nel repository: `10_sprite.asm`, `11_spriteMove.asm`.
 - Uscita modulo:
   - sai gestire almeno 1-2 sprite con controllo affidabile.
 
@@ -119,40 +125,61 @@ Al termine del percorso dovrai saper:
   - raster bar stabile;
   - fascia colore con IRQ top/bottom;
   - catena IRQ `arm/top/bottom`.
+- Esercizi nel repository: `12_rasterIRQ.asm`, `12b_rasterIRQ_kernal.asm`, `13_joystickRasterBar.asm`, `17_stableRaster.asm`.
 - Uscita modulo:
   - sai sincronizzare update grafico senza jitter visibile significativo.
 
-### Modulo 7 - Collisioni e logica gameplay
+### Modulo 7 - SID: suono e musica
 
-- Obiettivo: passare da demo tecnica a meccanica di gioco.
+- Obiettivo: produrre suono e musica senza compromettere il frame budget.
 - Prerequisiti: Modulo 6.
 - Contenuti:
-  - collisioni sprite-sprite e sprite-background;
-  - gestione vite, punteggio, stato partita.
+  - registri SID base (ADSR, waveform, gate, frequenza);
+  - integrazione player (es. SID Factory II export / routine init-tick).
 - Esercizi consigliati:
+  - nota singola e melodia con i registri SID;
+  - musica di sottofondo con tick in IRQ.
+- Esercizi nel repository: `14_sid.asm`, `15_sidMelody.asm`, `16_sidPlayer.asm`.
+- Uscita modulo:
+  - sai far suonare una musica in IRQ con timing stabile.
+
+### Modulo 8 - Tilemap e CharPad
+
+- Obiettivo: costruire lo scenario di gioco con charset e mappe disegnati in CharPad.
+- Prerequisiti: Modulo 3 (puntatori), Modulo 4 (bank e charset).
+- Contenuti:
+  - workflow CharPad: charset, mappa, attributi, material, export binari;
+  - Text Multicolour (`$D016`, `$D022/$D023`, flag nella Colour RAM);
+  - copia della mappa su screen RAM oltre i 256 byte (puntatori ZP o self-modifying code);
+  - Colour RAM riempita dagli attributi dei char.
+- Esercizi consigliati:
+  - visualizzare una mappa 40x25 esportata da CharPad;
+  - variante della copia con self-modifying code.
+- Esercizi nel repository: `19_charpadTilemap.asm`, `19a_charpadTilemap_selfmod.asm`.
+- Uscita modulo:
+  - sai portare una mappa da CharPad allo schermo con i colori corretti.
+
+### Modulo 9 - Collisioni e logica gameplay
+
+- Obiettivo: passare da demo tecnica a meccanica di gioco.
+- Prerequisiti: Modulo 8.
+- Contenuti:
+  - collisioni sprite-sprite e sprite-background (registri VIC);
+  - collisioni su tilemap via material (coordinate sprite → cella della mappa);
+  - gestione vite, punteggio, stato partita;
+  - SFX su eventi di gioco, priorità SFX vs musica.
+- Esercizi consigliati:
+  - sprite che si muove sulla mappa con muri solidi (material);
   - oggetti da evitare/raccogliere;
   - trigger game over e restart.
+- Esercizi nel repository: `18_spriteCollision.asm`.
 - Uscita modulo:
   - sai implementare una core loop giocabile con regole chiare.
 
-### Modulo 8 - SID: SFX e musica in gioco
-
-- Obiettivo: integrare audio senza compromettere il frame budget.
-- Prerequisiti: Modulo 7.
-- Contenuti:
-  - registri SID base (ADSR, waveform, gate);
-  - integrazione player (es. SID Factory II export / routine init-tick);
-  - priorita` SFX vs musica.
-- Esercizi consigliati:
-  - SFX su eventi gameplay;
-  - musica di sottofondo con tick in IRQ.
-- Uscita modulo:
-  - sai orchestrare audio coerente col gioco e con timing stabile.
-
-### Modulo 9 - Architettura gioco
+### Modulo 10 - Architettura gioco
 
 - Obiettivo: progettare codice scalabile su progetto reale.
-- Prerequisiti: Modulo 8.
+- Prerequisiti: Modulo 9.
 - Contenuti:
   - state machine (title, play, pause, game over);
   - separazione moduli (input, physics, render, audio);
@@ -163,17 +190,17 @@ Al termine del percorso dovrai saper:
 - Uscita modulo:
   - sai organizzare un progetto C64 non banale in modo mantenibile.
 
-### Modulo 10 - Capstone: mini gioco completo
+### Modulo 11 - Capstone: mini gioco completo
 
 - Obiettivo: consegnare un gioco completo, piccolo ma rifinito.
-- Prerequisiti: Modulo 9.
+- Prerequisiti: Modulo 10.
 - Specifiche minime capstone:
   - schermata titolo;
   - gameplay continuo con obiettivo chiaro;
   - punteggio e game over;
-  - almeno 2 tipi di entita` (player + nemico/oggetto);
+  - almeno 2 tipi di entità (player + nemico/oggetto);
   - audio (musica o SFX, preferibilmente entrambi);
-  - stabilita` video senza artefatti evidenti.
+  - stabilità video senza artefatti evidenti.
 - Uscita modulo:
   - gioco eseguibile in VICE, documentato, con codice comprensibile.
 
@@ -183,12 +210,12 @@ Al termine del percorso dovrai saper:
 2. Milestone B - Vertical slice: una meccanica giocabile completa.
 3. Milestone C - Capstone: gioco completo con polish base.
 
-## Criteri di qualita`
+## Criteri di qualità
 
 - Correttezza: nessun crash, nessun lock-up in uso normale.
-- Stabilita` timing: frame regolari e IRQ ben gestiti.
-- Leggibilita`: etichette chiare, macro/routine con responsabilita` nette.
-- Riproducibilita`: build e run semplici, documentazione aggiornata.
+- Stabilità timing: frame regolari e IRQ ben gestiti.
+- Leggibilità: etichette chiare, macro/routine con responsabilità nette.
+- Riproducibilità: build e run semplici, documentazione aggiornata.
 
 ## Manutenzione del piano
 

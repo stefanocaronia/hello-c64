@@ -10,8 +10,8 @@ This project contains progressive exercises in repository root (`<n>_<name>.asm`
 
 - Course plan: [teacher/course/course-plan.md](teacher/course/course-plan.md)
 - Course progress (0-10): [teacher/course/course-progress.md](teacher/course/course-progress.md)
-- Agent entry point: [agents.md](agents.md)
-- Full teacher instructions: [teacher/instructions/instructions.md](teacher/instructions/instructions.md)
+- Current state of the course: [teacher/memory/current.md](teacher/memory/current.md)
+- Agent entry point and teaching rules: [AGENTS.md](AGENTS.md)
 
 ## Study Notes
 
@@ -27,6 +27,9 @@ Main topic notes:
 - [study/vic-bank.md](study/vic-bank.md)
 - [study/charset.md](study/charset.md)
 - [study/joystick.md](study/joystick.md)
+- [study/layout.md](study/layout.md)
+- [study/math.md](study/math.md)
+- [study/sid-factory-ii.md](study/sid-factory-ii.md)
 
 ## Main Documentation (`doc`)
 
@@ -63,28 +66,26 @@ Notes:
 
 Use these steps when you want to start the course from a clean student workspace.
 
-1. Open this repository folder with your preferred LLM CLI.
-2. Choose your starting mode:
-   - `Keep reference exercises (recommended)`: keep root exercise files (`<n>_<name>.asm`) as examples/reference.
-   - `Clean start`: remove root exercise files (`<n>_<name>.asm`) to start from zero.
-3. Remove agent memory history:
-   - delete `teacher/memory/` contents (or the whole folder).
-4. Ask the agent to reset study files:
-   - clear `teacher/course/course-progress.md`;
-   - regenerate `teacher/course/course-plan.md` as a fresh course blueprint for the new student.
-5. Continue with normal course workflow.
+1. Create `config.yaml` (see above) and set `argument` and `language`.
+2. Open this repository folder with your preferred LLM CLI.
+3. Ask the agent to set up a new student workspace. It follows [teacher/prompt/new-student.md](teacher/prompt/new-student.md): it asks whether to keep the root exercise files as reference, removes the previous student's memory, lessons and quizzes, resets the progress and regenerates the course plan.
+4. Continue with normal course workflow.
 
 ## Repository Structure
 
-- project root: numbered practical exercises (`<n>_<name>.asm`)
-- `lib/`: reusable macros and helper libraries (screen, timing, math)
+- project root: numbered practical exercises (`<n>_<name>.asm`, variants as `<n><letter>_<name>.asm`)
+- `AGENTS.md`: agent entry point with all the teaching rules
+- `lib/`: reusable macros and helper libraries (screen, timing, math, colors)
+- `quiz/`: review material written during quizzes
 - `study/`: topic notes (`basics`, `sprite`, `sid`, etc.)
 - `teacher/course/`: course plan and course progress
-- `teacher/memory/`: agent memory files
-- `teacher/prompt/`: operational prompts (including notes backup)
+- `teacher/lessons/`: one lesson file per exercise (goal, new concepts, steps, difficulties)
+- `teacher/memory/`: `current.md` (current state) and one log file per session date
+- `teacher/instructions/`: documentation index and development environment
+- `teacher/prompt/`: operational procedures (notes backup, new student)
 - `doc/`: manuals and C64/KickAssembler references
-- `assets/`: exercise assets
 - `assets/sprites/`, `assets/charsets/`, `assets/music/`: sprite, charset, and music assets
+- `assets/maps/`, `assets/charpad/`: binaries exported from CharPad and CharPad projects
 - `.vscode/`: shared VS Code tasks/workspace automation
 
 ## VS Code Build/Run
@@ -133,9 +134,9 @@ Important:
 
 ## Suggested Workflow
 
-1. Pick the next exercise from the plan ([teacher/course/course-plan.md](teacher/course/course-plan.md)).
+1. Pick the next step from [teacher/memory/current.md](teacher/memory/current.md) and the plan ([teacher/course/course-plan.md](teacher/course/course-plan.md)).
 2. Work in one small learning step at a time (1-2 new concepts).
-3. Update [teacher/course/course-progress.md](teacher/course/course-progress.md) and [teacher/course/course-plan.md](teacher/course/course-plan.md).
+3. Update [teacher/course/course-progress.md](teacher/course/course-progress.md) and [teacher/memory/current.md](teacher/memory/current.md); update the plan only when the course design changes.
 4. Run notes backup using [teacher/prompt/notes-backup.md](teacher/prompt/notes-backup.md).
 5. Commit the learning step.
 

@@ -1,5 +1,20 @@
 # SID Factory II - Guida alle Tabelle (Driver 11)
 
+## Indice
+
+- [Corrispondenza nibble / bit](#corrispondenza-nibble--bit)
+- [Instrument](#instrument)
+  - [Envelope (byte 0-1)](#envelope-byte-0-1)
+  - [Flags (byte 2)](#flags-byte-2---ogni-bit-è-indipendente-si-combinano)
+- [Wave Table](#wave-table)
+- [Pulse Table](#pulse-table)
+- [Filter Table](#filter-table)
+- [Arpeggio Table](#arpeggio-table)
+- [HR Table (Hard Restart)](#hr-table-hard-restart)
+- [Init Table](#init-table)
+- [Tempo Table](#tempo-table)
+- [Command Table](#command-table)
+
 ## Corrispondenza nibble / bit
 
 ```
@@ -21,6 +36,17 @@ Ogni strumento ha 6 byte:
 | 3 | Indice Filter table |
 | 4 | Indice Pulse table |
 | 5 | Indice Wave table |
+
+
+### Envelope (byte 0-1)
+
+00 00
+AD SR
+
+- A: ATTACK tempo da 0 a volume massimo
+- D: DECAY tempo da volume massimo a volume sustain
+- S: SUSTAIN volume
+- R: RELEASE tempo da volume sustain a 0
 
 ### Flags (byte 2) - ogni bit è indipendente, si combinano
 
@@ -244,3 +270,156 @@ su quella riga, l'arpeggio viene ignorato.
 | Timbro | cambia waveform + nota | cambia solo la nota |
 | Attivazione | dall'instrument (byte 5) | dal comando `03` nella sequence |
 | Riuso | una wave per instrument | stessa arp per qualsiasi instrument |
+
+## HR Table (Hard Restart)
+
+### Il problema: ADSR bug
+
+Quando suoni note in sequenza rapida, il SID non resetta l'ADSR tra una nota
+e l'altra — riparte da dove era rimasto. Questo crea un attacco irregolare
+("school band effect": le note non partono tutte allo stesso modo).
+
+### La soluzione: hard restart
+
+**2 frame prima** della nota successiva, il driver:
+
+1. Fa **gate off** (chiude la nota corrente)
+2. Sovrascrive l'ADSR con valori dalla **HR table**
+
+Questo "azzera" l'ADSR, così la nota nuova parte sempre con un Attack pulito.
+
+### La HR table
+
+Contiene preset ADSR usati **solo per i 2 frame di reset** tra le note.
+Non sostituisce l'ADSR dello strumento — lo rimpiazza solo durante la preparazione.
+
+```
+HR table:
+00: 0F 00   ← AD=$0F (attack 0, decay max), SR=$00 (sustain 0, release 0)
+01: 09 00   ← un preset più morbido (esempio)
+```
+
+### Come si attiva
+
+Nel byte 2 (flags) dell'instrument:
+
+- **Bit 7 ($80)** — abilita hard restart
+- **Bit 0-2** — indice nella HR table (0-7)
+
+```
+$80 = HR abilitato, usa HR table riga 0
+$81 = HR abilitato, usa HR table riga 1
+$82 = HR abilitato, usa HR table riga 2
+```
+
+Per il 99% dei casi: flag `$80` + riga 0 con `$0F $00` e non ci pensi più.
+
+## Init Table
+
+Punto di partenza del brano. Ogni riga = una canzone (per multi-song nei giochi).
+
+```
+XX YY
+│  └─ volume principale (0-$F, dove $F = massimo)
+└──── indice nella Tempo table
+```
+
+Esempio per un gioco con 3 brani:
+
+```
+Init table:
+00: 00 0F   ← canzone 0: tempo riga 0, volume max
+01: 02 0F   ← canzone 1: tempo riga 2 (diverso), volume max
+02: 00 0A   ← canzone 2: tempo riga 0, volume basso (jingle)
+```
+
+Tutte le canzoni condividono instrument, sequence e tabelle.
+Per cambiare canzone in assembly: `lda #X` + `jsr INIT` (X = numero canzone).
+
+## Tempo Table
+
+Definisce la **velocità del brano** — quanti frame dura ogni riga della sequence.
+
+```
+Tempo table:
+00: 06       ← ogni riga dura 6 frame
+01: 7f 00    ← loop a riga 00
+```
+
+1 frame = 1/50s su PAL. Quindi:
+- `$02` = velocissimo
+- `$06` = medio
+- `$0C` = lento
+
+Con hard restart abilitato, il minimo pratico è `$02` (servono 2 frame per il reset).
+
+### Shuffle/swing
+
+Puoi creare ritmi irregolari con catene di valori diversi:
+
+```
+00: 06       ← riga lunga (6 frame)
+01: 04       ← riga corta (4 frame)
+02: 7f 00    ← loop (lungo-corto-lungo-corto = swing)
+```
+
+## Command Table
+
+Effetti applicati dalla **colonna centrale** della sequence.
+Ogni entry nella Command table ha 3 byte:
+
+```
+TN XX YY
+│└─ tipo comando (nibble BASSO)
+└── note delay in tick (nibble ALTO, solo driver 11.04+)
+```
+
+**Attenzione:** a differenza di Pulse/Filter table, qui il tipo comando è
+nel nibble **basso**, non nell'alto!
+
+### Effetti sulla frequenza
+
+| Nibble basso | Nome | XX | YY | Uso |
+|---|---|---|---|---|
+| `0` | **Slide** | speed hi | speed lo | Pitch bend (XXYY = velocità 16 bit) |
+| `1` | **Vibrato** | frequenza | ampiezza | YY piccolo = vibrato forte! |
+| `2` | **Portamento** | speed hi | speed lo | Scivola dalla nota precedente alla nuova |
+| `3` | **Arpeggio** | velocità | indice arp table | Accordi rapidi |
+
+### Modifica ADSR al volo
+
+| Nibble basso | Nome | XX | YY | Uso |
+|---|---|---|---|---|
+| `8` | **Set local ADSR** | AD | SR | Cambia ADSR fino alla prossima nota |
+| `9` | **Set instr. ADSR** | AD | SR | Cambia ADSR finché non cambi instrument |
+
+### Reindirizzamento tabelle
+
+| Nibble basso | Nome | XX | YY | Uso |
+|---|---|---|---|---|
+| `A` | **Filter program** | -- | indice | Avvia programma filtro |
+| `B` | **Wave program** | -- | indice | Cambia wave table al volo |
+
+### Esempio: Command table con vibrato e arpeggio
+
+```
+Command table:
+00: 01 04 20   ← vibrato: freq 4, ampiezza $20 (delicato)
+01: 01 04 01   ← vibrato: freq 4, ampiezza $01 (intenso)
+02: 03 01 00   ← arpeggio: velocità 1, indice arp 00
+```
+
+Nella sequence si riferiscono per indice:
+
+```
+Sequence:
+Inst Cmd  Nota
+ 01  00   C-4     ← nota con vibrato delicato (cmd 00)
+ 01  01   E-4     ← nota con vibrato intenso (cmd 01)
+ 01  02   C-4     ← nota con arpeggio (cmd 02)
+```
+
+### Disattivare un portamento
+
+Il portamento continua a scorrere finché non lo fermi.
+Per disattivarlo: crea un comando `02 80 00` e usalo nella sequence.
